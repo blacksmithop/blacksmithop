@@ -261,6 +261,10 @@ h2 {
   opacity: 0.8;
 }
 
+#projects h2 {
+  font-family: 'Playfair Display', serif;
+}
+
 /*──────────────────
       Contact
 ──────────────────*/
@@ -281,6 +285,10 @@ h2 {
   text-align: center;
   font-size: 1.2rem;
   font-family: var(--main-font-family);
+}
+
+#contact h2 {
+  font-family: 'Playfair Display', serif;
 }
 
 /*──────────────────
