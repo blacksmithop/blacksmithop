@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
 :root {
   --main-background: #0b0c0f;
   --main-fonts-color: #fff;
@@ -81,6 +81,7 @@ a.nav-link {
   background: var(--main-decor-color);
 }
 
+
 /*──────────────────
        home
 ──────────────────*/
@@ -114,6 +115,10 @@ a.nav-link {
   z-index: 1;
   margin: auto;
   padding: 20px;
+}
+
+.intro h1 {
+  font-family: 'Playfair Display', serif;
 }
 
 .intro p,
