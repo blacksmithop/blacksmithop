@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Abhinav KM</title>
-    <link>https://blacksmithop.github.io/blacksmithop/categories/</link>
+    <link>https://blacksmithop.github.io/categories/</link>
     <description>Recent content in Categories on Abhinav KM</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://blacksmithop.github.io/blacksmithop/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="https://blacksmithop.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
