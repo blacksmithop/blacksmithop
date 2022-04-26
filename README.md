@@ -1,4 +1,4 @@
-# Hi! I'm Abhinav
+# Hi! I'm Abhinav :raised_hand_with_fingers_splayed:
 
 ---
 
@@ -8,8 +8,10 @@
 
 ---
 
- ## My [website](https://abhinav.page/)
+ ## My [website](https://abhinav.page/) :computer:
 
 ---
+
+## Stats :page_with_curl:
 
  ![blacksmithop](https://github-readme-stats.vercel.app/api?username=blacksmithop&show_icons=true&locale=en)
