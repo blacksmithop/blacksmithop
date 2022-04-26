@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blacksmithop.github.io/</loc>
+    <loc>/</loc>
   </url><url>
-    <loc>https://blacksmithop.github.io/authors/</loc>
+    <loc>/authors/</loc>
   </url><url>
-    <loc>https://blacksmithop.github.io/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>https://blacksmithop.github.io/projects/</loc>
+    <loc>/projects/</loc>
   </url><url>
-    <loc>https://blacksmithop.github.io/series/</loc>
+    <loc>/series/</loc>
   </url><url>
-    <loc>https://blacksmithop.github.io/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>
