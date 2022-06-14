@@ -14,4 +14,4 @@
 
 ## Stats :page_with_curl:
 
- ![blacksmithop](https://github-readme-stats.vercel.app/api?username=blacksmithop&show_icons=true&locale=en)
+[ ![blacksmithop](https://github-readme-stats.vercel.app/api?username=blacksmithop&show_icons=true&locale=en)](https://github.com/blacksmithop/github-stats/raw/master/generated/overview.svg)
