@@ -3,8 +3,7 @@
 ---
 
 - 🔭 I’m currently working on my [Portfolio](https://blacksmithop.github.io/Portfolio/)
-- 🧪 In the process of learning Hugo and Renpy
-- 💬 Knows a bit about Flask and Sockets
+- 🧪 Currently learning Data Science!
 
 ---
 
