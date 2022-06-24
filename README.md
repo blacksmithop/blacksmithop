@@ -2,8 +2,8 @@
 
 ---
 
-- 🔭 I’m currently working on my [Portfolio](https://blacksmithop.github.io/Portfolio/)
-- 🧪 Currently learning Data Science!
+- 🔭 I’m currently working with [pandas](https://pandas.pydata.org/docs/)
+- 🧪 Learning Data Science!
 
 ---
 
