@@ -1,15 +1,11 @@
-# Hi! I'm Abhinav :raised_hand_with_fingers_splayed:
+# Hello there 🙌
 
----
 
-- 🔭 I’m currently working with [pandas](https://pandas.pydata.org/docs/)
-- 🧪 Learning Data Science!
+I am currently learning about Neural Networks 🧠
 
----
+### Content
+My blog [python.abhinav.page](https://python.abhinav.page/) 📖
 
- ## My [website](https://abhinav.page/) :computer:
 
----
-
-## Stats :page_with_curl:
-![](https://raw.githubusercontent.com/blacksmithop/github-stats/master/generated/overview.svg#gh-dark-mode-only)
+### Vanity :page_with_curl:
+![](https://stackoverflow-card.vercel.app/?userID=11323371&theme=dracula)
