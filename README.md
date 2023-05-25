@@ -3,8 +3,8 @@
 
 I am currently learning about Neural Networks 🧠
 
-### Content
-My blog [python.abhinav.page](https://python.abhinav.page/) 📖
+### Content 📖
+My [tech blog](https://python.abhinav.page/) 
 
 
 ### Vanity :page_with_curl:
