@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.window {
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.window.minimized {
+    transform: scale(0.1);
+    opacity: 0;
+    display: none;
+}
+
+.window-header {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.button {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.button.close {
+    background-color: #ff5f57; /* Close button color */
+}
+
+.button.minimize {
+    background-color: #ffbd2e; /* Minimize button color */
+}
+
+.button.expand {
+    background-color: #28c940; /* Expand button color */
+}
+
+.window-content {
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+.file-icon {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.file-icon .icon {
+    font-size: 4em;
+}
+
+.file-icon .text {
+    font-size: 1em;
+    margin-top: 10px;
+}
