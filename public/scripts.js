@@ -23,8 +23,12 @@ document.getElementById('search-input').addEventListener('input', () => {
 });
 
 document.querySelectorAll('.file-item').forEach(item => {
-    item.addEventListener('click', () => {
-        console.log('Search item clicked');
+    item.addEventListener('click', (e) => {
+        if (e.currentTarget.id === 'expander-about') {
+            maximizeWindow();
+        } else if (e.currentTarget.id === 'expander-wallpaper') {
+            toggleWallpaperWindow();
+        }
     });
 });
 
@@ -34,6 +38,10 @@ document.getElementById('file-icon').addEventListener('click', () => {
 
 document.getElementById('expander-about').addEventListener('click', () => {
     maximizeWindow();
+});
+
+document.getElementById('expander-wallpaper').addEventListener('click', () => {
+    toggleWallpaperWindow();
 });
 
 document.getElementById('wallpaper-icon').addEventListener('click', () => {
@@ -89,39 +97,24 @@ function changeWallpaper(url) {
     toggleWallpaperWindow();
 }
 
-// Make the window draggable
-dragElement(document.getElementById("main-window"));
+// Make the windows draggable using Interact.js
+interact('.window').draggable({
+    allowFrom: '.window-header',
+    listeners: {
+        start(event) {
+            const target = event.target;
+            target.style.position = 'absolute';
+        },
+        move(event) {
+            const target = event.target;
+            const dataX = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            const dataY = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById("window-header")) {
-        document.getElementById("window-header").onmousedown = dragMouseDown;
-    } else {
-        elmnt.onmousedown = dragMouseDown;
-    }
+            target.style.left = `${dataX}px`;
+            target.style.top = `${dataY}px`;
 
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
+            target.setAttribute('data-x', dataX);
+            target.setAttribute('data-y', dataY);
+        }
     }
-
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-    }
-
-    function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-}
+});

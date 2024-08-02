@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="https://raw.githubusercontent.com/blacksmithop/blacksmithop/main/public/styles.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
 </head>
 <body>
     <div class="desktop-icon file-icon" id="file-icon">
@@ -36,20 +37,15 @@
             <p>Let's make something interesting</p>
         </div>
     </div>
-    <div class="search-window" id="search-window">
-        <div class="search-content">
-            <div class="file-item" id="expander-about">
-                <div class="icon">📄</div>
-                <div class="text">about.txt</div>
+    <div class="window" id="wallpaper-window" style="display: none;">
+        <div class="window-header">
+            <div class="buttons">
+                <div class="button close" onclick="toggleWallpaperWindow()"></div>
+                <div class="button minimize" onclick="toggleWallpaperWindow()"></div>
+                <div class="button expand"></div>
             </div>
-            <div class="divider"></div>
-            <div class="file-item"></div>
-            <div class="divider"></div>
-            <div class="file-item"></div>
         </div>
-    </div>
-    <div class="wallpaper-window" id="wallpaper-window">
-        <div class="wallpaper-content">
+        <div class="window-content wallpaper-content">
             <div class="wallpaper-item">
                 <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Wallpaper 1" class="wallpaper-thumbnail" data-url="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
             </div>
@@ -63,8 +59,23 @@
                 <img src="https://images.unsplash.com/photo-1502726299822-6f583f972e02?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Wallpaper 4" class="wallpaper-thumbnail" data-url="https://images.unsplash.com/photo-1502726299822-6f583f972e02?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
             </div>
             <div class="wallpaper-item blank-background" data-url="white">
-                <div class="wallpaper-thumbnail blank">Blank</div>
+                <div class="wallpaper-thumbnail blank"></div>
             </div>
+        </div>
+    </div>
+    <div class="search-window" id="search-window">
+        <div class="search-content">
+            <div class="file-item" id="expander-about">
+                <div class="icon">📄</div>
+                <div class="text">about.txt</div>
+            </div>
+            <div class="divider"></div>
+            <div class="file-item" id="expander-wallpaper">
+                <div class="icon">🖼️</div>
+                <div class="text">Wallpaper selection</div>
+            </div>
+            <div class="divider"></div>
+            <div class="file-item"></div>
         </div>
     </div>
     <script src="https://raw.githubusercontent.com/blacksmithop/blacksmithop/main/public/scripts.js" type="text/javascript"></script>
