@@ -1,285 +1,142 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #000;
+    cursor: default; /* Set default cursor */
+}
+
+#main-screen {
+    width: 100vw;
+    height: 90vh;
     position: relative;
-    transition: background-image 0.5s ease-in-out, color 0.5s ease-in-out;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
-body.background-selected .desktop-icon .icon, 
-body.background-selected .desktop-icon .text {
-    color: white;
-}
-
-body.blank-background .desktop-icon .icon, 
-body.blank-background .desktop-icon .text {
-    color: black;
-}
-
-.desktop-icon {
+#file-icons {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1em;
-    text-align: center;
+    gap: 10px;
     position: absolute;
-}
-
-.file-icon {
     top: 20px;
     left: 20px;
 }
 
-.wallpaper-icon {
-    top: 20px;
-    left: 100px; /* Added spacing between icons */
-}
-
-.trash-icon {
-    bottom: 60px; /* Adjusted to be above the taskbar */
-    right: 20px;
-    font-size: 2em;
-}
-
-.taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background-color: #333;
+.file-icon {
+    width: 80px;
+    height: 80px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 0 10px;
-}
-
-.start-button {
-    color: white;
-    background-color: #444;
-    padding: 5px;
-    margin-right: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
+    cursor: move; /* Set move cursor for file icons */
+    text-align: center;
 }
 
-.start-button:hover {
-    background-color: #555;
+.file-icon i {
+    font-size: 40px;
+    margin-bottom: 5px;
 }
 
-.search-container {
-    position: relative;
-}
-
-.search-input {
-    border: none;
-    border-radius: 15px;
-    padding: 5px 10px;
-    margin-right: 10px;
-    outline: none;
-    width: 200px;
-}
-
-.spinner {
+.file-window {
+    width: 300px;
+    height: 200px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
     position: absolute;
-    top: 50%;
-    right: 15px;
-    width: 20px;
-    height: 20px;
-    border: 3px solid #ddd;
-    border-top: 3px solid #444;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: none;
-    transform: translateY(-50%);
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.window {
-    background-color: white;
-    width: 90%;
-    max-width: 800px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: absolute;
-    cursor: move;
+    display: flex;
+    flex-direction: column;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-#wallpaper-window {
-    width: 90%;
-    max-width: 1000px;
-    height: 70%;
-    max-height: 600px;
-    display: none;
-}
-
-.window.minimized {
-    transform: scale(0.1);
-    opacity: 0;
-    display: none;
-}
-
-.window-header {
+.file-window-header {
     display: flex;
-    align-items: center;
-    background-color: #e0e0e0;
-    padding: 10px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    cursor: move;
+    justify-content: flex-end;
+    background-color: #ddd;
+    padding: 5px;
 }
 
-.buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.button {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.file-window-btn {
+    background: none;
+    border: none;
     cursor: pointer;
-    position: relative;
+    margin-left: 5px;
 }
 
-.button.close {
-    background-color: #ff5f57; /* Close button color */
-}
-
-.button.minimize {
-    background-color: #ffbd2e; /* Minimize button color */
-}
-
-.button.expand {
-    background-color: #28c940; /* Expand button color */
-}
-
-.window-content {
-    padding: 40px;
-    text-align: center;
-    position: relative;
-}
-
-#wallpaper-window .window-content {
-    padding: 20px;
+.file-window-content {
+    flex-grow: 1;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: inherit;
+.color-square {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 1px solid #000;
 }
 
-p {
-    font-size: 1.2em;
-    color: inherit;
-}
-
-.file-icon .icon, .wallpaper-icon .icon {
-    font-size: 3em; /* Smaller icon size */
-}
-
-.file-icon .text, .wallpaper-icon .text {
-    font-size: 1em;
-    margin-top: 5px;
-}
-
-.search-window {
+.hidden {
     display: none;
-    position: absolute;
-    bottom: 60px;
-    left: 10px;
-    width: 300px;
-    height: 400px; /* Increased height */
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 10px;
-    overflow-y: auto;
 }
 
-.search-content {
-    padding: 10px;
-}
-
-.file-item {
+#taskbar {
+    width: 100vw;
+    height: 10vh;
+    background-color: #333;
+    color: #fff;
     display: flex;
     align-items: center;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.file-item .icon {
-    font-size: 2em;
-    margin-right: 10px;
-}
-
-.file-item .text {
-    font-size: 1em;
-}
-
-.file-item:hover {
-    background-color: #f0f0f0;
-}
-
-.divider {
-    height: 1px;
-    background-color: #ddd;
-    margin: 5px 0;
-}
-
-.wallpaper-item {
-    width: 23%;
-    cursor: pointer;
-}
-
-.wallpaper-thumbnail {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.wallpaper-item.blank-background .wallpaper-thumbnail {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    height: 100px;
+    position: fixed;
+    bottom: 0;
 }
 
-.wallpaper-item.blank-background .wallpaper-thumbnail.blank {
-    color: #444;
-    font-size: 1em;
+#start-button {
+    background-color: #444;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+#search-input {
+    width: 200px;
+    padding: 5px;
+    border: none;
+}
+
+#start-menu {
+    position: absolute;
+    bottom: 10vh;
+    background-color: #444;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+#start-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+#start-menu li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.taskbar-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
