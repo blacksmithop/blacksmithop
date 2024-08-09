@@ -4,6 +4,7 @@ body {
     font-family: Arial, sans-serif;
     color: #000;
     cursor: default; /* Set default cursor */
+    user-select: none; /* Disable text selection */
 }
 
 #main-screen {
@@ -30,6 +31,7 @@ body {
     justify-content: center;
     cursor: move; /* Set move cursor for file icons */
     text-align: center;
+    z-index: 1;
 }
 
 .file-icon i {
@@ -50,6 +52,11 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
+    z-index: 10; /* Make sure window is above other elements */
+}
+
+#wallpaper-window {
+    width: 600px; /* Adjust width to accommodate the images */
 }
 
 .file-window-header {
@@ -72,6 +79,14 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+}
+
+.wallpaper-content {
+    display: flex;
+    flex-direction: row; /* Ensure options are side by side */
+    justify-content: space-between; /* Distribute options evenly */
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .name {
@@ -97,10 +112,13 @@ body {
 }
 
 .color-square {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
     border: 1px solid #000;
+    background-size: cover;
+    background-position: center;
+    flex: 0 0 auto; /* Ensures the boxes are evenly spaced and do not shrink */
 }
 
 .hidden {
@@ -109,14 +127,16 @@ body {
 
 #taskbar {
     width: 100vw;
-    height: 10vh;
+    height: 8vh; /* Reduced height */
     background-color: #333;
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 10px;
     position: fixed;
     bottom: 0;
+    z-index: 1000; /* Ensure the taskbar is above all other elements */
 }
 
 #start-button {
@@ -125,18 +145,18 @@ body {
     color: #fff;
     padding: 10px;
     cursor: pointer;
-    margin-right: 20px;
 }
 
 #search-input {
-    width: 200px;
-    padding: 5px;
+    width: 300px; /* Increased width */
+    padding: 5px 10px;
     border: none;
+    border-radius: 15px; /* Rounded input */
 }
 
 #start-menu {
     position: absolute;
-    bottom: 10vh;
+    bottom: 8vh;
     background-color: #444;
     color: #fff;
     padding: 20px;
@@ -155,11 +175,11 @@ body {
 }
 
 .taskbar-icon {
-    width: 40px;
-    height: 40px;
-    margin-left: 10px;
+    width: 50px; /* Increased size */
+    height: 50px; /* Increased size */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 10px;
 }
