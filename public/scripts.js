@@ -36,9 +36,9 @@ document.getElementById('expand-wallpaper-btn').addEventListener('click', () => 
 
 document.querySelectorAll('.color-square').forEach(square => {
     square.addEventListener('click', (e) => {
-        const color = e.target.getAttribute('data-color');
-        document.body.style.backgroundColor = color;
-        document.body.style.color = '#000';  // Make text color black for all backgrounds
+        document.body.style.backgroundImage = `url(${e.target.style.backgroundImage.slice(5, -2)})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
     });
 });
 
@@ -98,14 +98,29 @@ interact('.file-icon, .file-window')
                 relativePoints: [{ x: 0, y: 0 }]
             }),
             interact.modifiers.restrict({
-                restriction: 'parent',
+                restriction: '#main-screen',
                 endOnly: true,
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             })
         ],
         inertia: true,
         listeners: {
-            move: dragMoveListener
+            move: dragMoveListener,
+            end(event) {
+                // Handle overlap avoidance
+                const allIcons = document.querySelectorAll('.file-icon');
+                allIcons.forEach(icon => {
+                    if (icon !== event.target) {
+                        const rect1 = event.target.getBoundingClientRect();
+                        const rect2 = icon.getBoundingClientRect();
+
+                        if (rect1.left < rect2.right && rect1.right > rect2.left &&
+                            rect1.top < rect2.bottom && rect1.bottom > rect2.top) {
+                            icon.style.transform = `translate(${rect1.right - rect2.left + 10}px, ${rect1.bottom - rect2.top + 10}px)`;
+                        }
+                    }
+                });
+            }
         }
     });
 
