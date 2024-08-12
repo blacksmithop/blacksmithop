@@ -52,15 +52,35 @@
         </div>
     </div>
     <div id="taskbar">
-        <button id="start-button">Start</button>
-        <input type="text" id="search-input" placeholder="Search...">
-        <div id="start-menu" class="hidden">
-            <ul>
-                <li id="start-about-txt">about.txt</li>
-                <li id="start-wallpaper">wallpaper</li>
-            </ul>
+        <div id="taskbar-left"></div>
+        <div id="taskbar-center">
+            <button id="start-button">Start</button>
+            <input type="text" id="search-input" placeholder="Search...">
+        </div>
+        <div id="taskbar-right"></div>
+    </div>
+
+    <div id="start-menu" class="collapsed">
+        <div id="start-menu-icons">
+            <div class="start-menu-icon">
+                <i class="fas fa-file-alt"></i>
+                <span>about.txt</span>
+            </div>
+            <div class="start-menu-icon">
+                <i class="fas fa-image"></i>
+                <span>wallpaper</span>
+            </div>
+        </div>
+        <div id="start-menu-footer">
+            <span id="username">Abhinav KM</span>
+            <button id="power-off-button"><i class="fas fa-power-off"></i></button>
         </div>
     </div>
+
+    <div id="blackout-screen" class="hidden">
+        <button id="power-on-button">Power On</button>
+    </div>
+
     <script src="https://unpkg.com/interactjs/dist/interact.min.js" type="text/javascript"></script>
     <script src="./public/scripts.js" type="text/javascript"></script>
 </body>
