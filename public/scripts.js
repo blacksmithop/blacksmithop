@@ -1,5 +1,34 @@
-document.getElementById('start-button').addEventListener('click', () => {
-    document.getElementById('start-menu').classList.toggle('hidden');
+document.addEventListener('DOMContentLoaded', () => {
+    const startMenu = document.getElementById('start-menu');
+    const startButton = document.getElementById('start-button');
+    const powerOffButton = document.getElementById('power-off-button');
+    const blackoutScreen = document.getElementById('blackout-screen');
+    const powerOnButton = document.getElementById('power-on-button');
+
+    // Ensure the start menu starts hidden
+    startMenu.style.display = 'none';
+
+    startButton.addEventListener('click', () => {
+        if (startMenu.style.display === 'none') {
+            startMenu.style.display = 'flex';
+        } else {
+            startMenu.style.display = 'none';
+        }
+    });
+
+    powerOffButton.addEventListener('click', () => {
+        // Hide everything and show the blackout screen
+        document.getElementById('main-screen').style.display = 'none';
+        document.getElementById('taskbar').style.display = 'none';
+        blackoutScreen.style.display = 'flex';
+    });
+
+    powerOnButton.addEventListener('click', () => {
+        // Show everything again and hide the blackout screen
+        document.getElementById('main-screen').style.display = 'flex';
+        document.getElementById('taskbar').style.display = 'flex';
+        blackoutScreen.style.display = 'none';
+    });
 });
 
 document.getElementById('about-txt').addEventListener('click', () => {
@@ -55,7 +84,7 @@ function closeFileWindow(windowId) {
 
 function minimizeFileWindow(windowId, iconClass) {
     const windowElement = document.getElementById(windowId);
-    const taskbar = document.getElementById('taskbar');
+    const taskbarRight = document.getElementById('taskbar-right');
 
     // Check if the icon already exists in the taskbar
     let minimizedIcon = document.querySelector(`.taskbar-icon[data-window-id="${windowId}"]`);
@@ -67,9 +96,9 @@ function minimizeFileWindow(windowId, iconClass) {
         minimizedIcon.addEventListener('click', () => {
             windowElement.style.display = 'block';
             windowElement.classList.remove('hidden');
-            taskbar.removeChild(minimizedIcon);
+            taskbarRight.removeChild(minimizedIcon);
         });
-        taskbar.appendChild(minimizedIcon);
+        taskbarRight.appendChild(minimizedIcon);
     }
 
     windowElement.style.display = 'none';
@@ -80,15 +109,7 @@ function expandFileWindow(windowId) {
     windowElement.classList.toggle('expanded');
 }
 
-// Initially open and center the about.txt window
-document.addEventListener('DOMContentLoaded', () => {
-    openFileWindow('file-window');
-    const aboutWindow = document.getElementById('file-window');
-    aboutWindow.style.top = '50%';
-    aboutWindow.style.left = '50%';
-    aboutWindow.style.transform = 'translate(-50%, -50%)';
-});
-
+// Drag and drop functionality for the file icons and windows
 interact('.file-icon, .file-window')
     .draggable({
         modifiers: [
