@@ -1,87 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows Home Screen Simulation</title>
-    <link rel="stylesheet" type="text/css" href="./public/styles.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows Home Screen Simulation</title>
+  <link rel="stylesheet" type="text/css" href="./public/styles.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
-    <div id="main-screen">
-        <div id="file-icons">
-            <div class="file-icon" id="about-txt">
-                <i class="fas fa-file-alt"></i>
-                <span>about.txt</span>
-            </div>
-            <div class="file-icon" id="wallpaper">
-                <i class="fas fa-image"></i>
-                <span>wallpaper</span>
-            </div>
-        </div>
-        <div id="file-window" class="file-window">
-            <div class="file-window-header">
-                <button class="file-window-btn" id="close-btn">✕</button>
-                <button class="file-window-btn" id="minimize-btn">━</button>
-                <button class="file-window-btn" id="expand-btn">☐</button>
-            </div>
-            <div class="file-window-content">
-                <img src="https://media.licdn.com/dms/image/D5603AQExC0TMyA-NEQ/profile-displayphoto-shrink_200_200/0/1718694878013?e=1728518400&v=beta&t=HmtUTkP5DYnneOU2f5qBCPOUX6cUvPRxea7JJc3Jj3M" class="profile-img">
-                <p class="name"><strong>Abhinav KM</strong></p>
-                <p>Hi, I am a python developer who likes to work on unconventional problems</p>
-                <div id="socials">
-                    <a href="https://github.com/blacksmithop" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://stackoverflow.com/users/11323371/insertcheesyline" target="_blank"><i class="fab fa-stack-overflow"></i></a>
-                    <a href="https://linkedin.com/in/abhinav--km/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-        <div id="wallpaper-window" class="file-window hidden">
-            <div class="file-window-header">
-                <button class="file-window-btn" id="close-wallpaper-btn">✕</button>
-                <button class="file-window-btn" id="minimize-wallpaper-btn">━</button>
-                <button class="file-window-btn" id="expand-wallpaper-btn">☐</button>
-            </div>
-            <div class="file-window-content wallpaper-content">
-                <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://images.unsplash.com/photo-1502726299822-6f583f972e02'); background-size: cover;"></div>
-                <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://plus.unsplash.com/premium_photo-1691854350650-326847f19729'); background-size: cover;"></div>
-                <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://images.unsplash.com/photo-1529728936071-bf09caff2f99'); background-size: cover;"></div>
-                <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba'); background-size: cover;"></div>
-                <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://plus.unsplash.com/premium_photo-1685148902854-9b9bb49fff08'); background-size: cover;"></div>
-            </div>
-        </div>
+  <div id="main-screen">
+    <div id="file-icons">
+      <div class="file-icon" id="about-txt">
+        <i class="fas fa-file-alt"></i>
+        <span>about.txt</span>
+      </div>
+      <div class="file-icon" id="wallpaper">
+        <i class="fas fa-image"></i>
+        <span>wallpaper</span>
+      </div>
+      <div class="file-icon" id="projects">
+        <i class="fas fa-project-diagram"></i>
+        <span>Projects</span>
+      </div>
     </div>
-    <div id="taskbar">
-        <div id="taskbar-left"></div>
-        <div id="taskbar-center">
-            <button id="start-button">Start</button>
-            <input type="text" id="search-input" placeholder="Search...">
+    <div id="file-window" class="file-window">
+      <div class="file-window-header">
+        <button class="file-window-btn" id="close-btn">✕</button>
+        <button class="file-window-btn" id="minimize-btn">━</button>
+        <button class="file-window-btn" id="expand-btn">☐</button>
+      </div>
+      <div class="file-window-content">
+        <img src="https://media.licdn.com/dms/image/D5603AQExC0TMyA-NEQ/profile-displayphoto-shrink_200_200/0/1718694878013?e=1728518400&v=beta&t=HmtUTkP5DYnneOU2f5qBCPOUX6cUvPRxea7JJc3Jj3M" class="profile-img">
+        <p class="name"><strong>Abhinav KM</strong></p>
+        <p>Hi, I am a python developer who likes to work on unconventional problems</p>
+        <div id="socials">
+          <a href="https://github.com/blacksmithop" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://stackoverflow.com/users/11323371/insertcheesyline" target="_blank"><i class="fab fa-stack-overflow"></i></a>
+          <a href="https://linkedin.com/in/abhinav--km/" target="_blank"><i class="fab fa-linkedin"></i></a>
         </div>
-        <div id="taskbar-right"></div>
+      </div>
     </div>
+    <div id="wallpaper-window" class="file-window hidden">
+      <div class="file-window-header">
+        <button class="file-window-btn" id="close-wallpaper-btn">✕</button>
+        <button class="file-window-btn" id="minimize-wallpaper-btn">━</button>
+        <button class="file-window-btn" id="expand-wallpaper-btn">☐</button>
+      </div>
+      <div class="file-window-content wallpaper-content">
+        <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://images.unsplash.com/photo-1502726299822-6f583f972e02'); background-size: cover;"></div>
+        <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://plus.unsplash.com/premium_photo-1691854350650-326847f19729'); background-size: cover;"></div>
+        <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://images.unsplash.com/photo-1529728936071-bf09caff2f99'); background-size: cover;"></div>
+        <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba'); background-size: cover;"></div>
+        <div class="color-square" data-color="#FFFFFF" style="background-image: url('https://plus.unsplash.com/premium_photo-1685148902854-9b9bb49fff08'); background-size: cover;"></div>
+      </div>
+    </div>
+    <div id="projects-window" class="file-window hidden">
+      <div class="file-window-header">
+        <button class="file-window-btn" id="close-projects-btn">✕</button>
+        <button class="file-window-btn" id="minimize-projects-btn">━</button>
+        <button class="file-window-btn" id="expand-projects-btn">☐</button>
+      </div>
+      <div class="file-window-content">
+        <h2 id="project-title"></h2>
+        <p id="project-description"></p>
+        <div id="project-metadata">
+          <p><i class="fas fa-star"></i> <span id="project-stars"></span></p>
+          <p><i class="fas fa-code"></i> <span id="project-language"></span></p>
+          <p><i class="fas fa-code-branch"></i> <span id="project-forks"></span></p>
+          <p><i class="fas fa-exclamation-circle"></i> <span id="project-issues"></span></p>
+        </div>
+        <div id="project-navigation">
+          <button id="prev-project">Back</button>
+          <button id="next-project">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="taskbar">
+    <div id="taskbar-left"></div>
+    <div id="taskbar-center">
+      <button id="start-button">Start</button>
+      <input type="text" id="search-input" placeholder="Search...">
+    </div>
+    <div id="taskbar-right">
+      <button id="dropdown-button"><i class="fas fa-ellipsis-v"></i></button>
+      <div id="dropdown-menu" class="hidden">
+        <ul>
+          <li>Option 1</li>
+          <li>Option 2</li>
+          <li>Option 3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-    <div id="start-menu" class="collapsed">
-        <div id="start-menu-icons">
-            <div class="start-menu-icon">
-                <i class="fas fa-file-alt"></i>
-                <span>about.txt</span>
-            </div>
-            <div class="start-menu-icon">
-                <i class="fas fa-image"></i>
-                <span>wallpaper</span>
-            </div>
-        </div>
-        <div id="start-menu-footer">
-            <span id="username">Abhinav KM</span>
-            <button id="power-off-button"><i class="fas fa-power-off"></i></button>
-        </div>
+  <div id="start-menu" class="collapsed">
+    <div id="start-menu-icons">
+      <div class="start-menu-icon" id="menu-about-txt">
+        <i class="fas fa-file-alt"></i>
+        <span>about.txt</span>
+      </div>
+      <div class="start-menu-icon" id="menu-wallpaper">
+        <i class="fas fa-image"></i>
+        <span>wallpaper</span>
+      </div>
+      <div class="start-menu-icon" id="menu-projects">
+        <i class="fas fa-project-diagram"></i>
+        <span>Projects</span>
+      </div>
     </div>
-
-    <div id="blackout-screen" class="hidden">
-        <button id="power-on-button">Power On</button>
+    <div id="start-menu-footer">
+      <span id="username">Abhinav KM</span>
+      <button id="power-off-button"><i class="fas fa-power-off"></i></button>
     </div>
+  </div>
 
-    <script src="https://unpkg.com/interactjs/dist/interact.min.js" type="text/javascript"></script>
-    <script src="./public/scripts.js" type="text/javascript"></script>
+  <div id="blackout-screen" class="hidden">
+    <button id="power-on-button">Power On</button>
+  </div>
+
+  <script src="https://unpkg.com/interactjs/dist/interact.min.js" type="text/javascript"></script>
+  <script src="./public/scripts.js" type="text/javascript"></script>
 </body>
+
 </html>
