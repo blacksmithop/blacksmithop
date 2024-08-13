@@ -1,266 +1,324 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    color: #000;
-    cursor: default; /* Set default cursor */
-    user-select: none; /* Disable text selection */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #000;
+  cursor: default;
+  user-select: none;
 }
 
 #main-screen {
-    width: 100vw;
-    height: 90vh;
-    position: relative;
+  width: 100vw;
+  height: 90vh;
+  position: relative;
 }
 
 #file-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 
 .file-icon {
-    width: 80px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: move; /* Set move cursor for file icons */
-    text-align: center;
-    z-index: 1;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.file-icon:hover {
+  transform: scale(1.1); /* Slightly increase the icon size on hover */
 }
 
 .file-icon i {
-    font-size: 40px;
-    margin-bottom: 5px;
+  font-size: 40px;
+  margin-bottom: 5px;
 }
 
 .file-window {
-    width: 400px;
-    border: 1px solid #000;
-    border-radius: 5px;
-    background-color: #fff;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    z-index: 10; /* Make sure window is above other elements */
+  width: 400px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  z-index: 10;
+  color: #000;
 }
 
-#wallpaper-window {
-    width: 600px; /* Adjust width to accommodate the images */
+#wallpaper-window,
+#projects-window {
+  width: 600px;
 }
 
 .file-window-header {
-    display: flex;
-    justify-content: flex-end;
-    background-color: #ddd;
-    padding: 5px;
-    margin: -20px -20px 10px -20px; /* To cover the padding of the file window */
+  display: flex;
+  justify-content: flex-end;
+  background-color: #ddd;
+  padding: 5px;
+  margin: -20px -20px 10px -20px;
 }
 
 .file-window-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .file-window-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
 }
 
-.wallpaper-content {
-    display: flex;
-    flex-direction: row; /* Ensure options are side by side */
-    justify-content: space-between; /* Distribute options evenly */
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.name {
-    font-size: 24px;
-    text-align: center;
-}
-
-.profile-img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
+#wallpaper-window .file-window-content {
+  flex-direction: row;
+  justify-content: center;
 }
 
 #socials {
-    display: flex;
-    gap: 20px; /* Increased gap for visual separation */
+  display: flex;
+  gap: 20px; /* Increased gap for visual separation */
 }
 
 #socials a {
-    color: #000;
-    font-size: 28px; /* Increased size for social icons */
-    text-decoration: none;
+  color: #000;
+  font-size: 36px; /* Increased size for social icons */
+  text-decoration: none;
 }
 
 .color-square {
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    border: 1px solid #000;
-    background-size: cover;
-    background-position: center;
-    flex: 0 0 auto; /* Ensures the boxes are evenly spaced and do not shrink */
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 1px solid #000;
+  background-size: cover;
+  background-position: center;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.color-square:hover {
+  transform: scale(1.1);
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #taskbar {
-    width: 100vw;
-    height: 8vh; /* Reduced height */
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    bottom: 0;
-    z-index: 1000; /* Ensure the taskbar is above all other elements */
+  width: 100vw;
+  height: 10vh; /* Increased height */
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  border-radius: 20px 20px 0 0;
+  padding: 0 15px;
 }
 
 #taskbar-left,
 #taskbar-center,
 #taskbar-right {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #taskbar-left {
-    flex: 1; /* Fills space on the left */
+  flex: 1;
 }
 
 #taskbar-center {
-    flex: 1; /* Center Start button and search input */
-    justify-content: center;
+  flex: 1;
+  justify-content: center;
+  gap: 15px;
 }
 
 #taskbar-right {
-    flex: 1; /* Fills space on the right */
-    justify-content: flex-end; /* Align minimized icons to the right */
+  flex: 1;
+  justify-content: flex-end;
+  gap: 5px; /* Reduced spacing between minimized icons */
 }
 
 #start-button {
-    background-color: #444;
-    border: none;
-    color: #fff;
-    padding: 10px;
-    cursor: pointer;
+  background-color: #444;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#start-button:hover {
+  background-color: #555;
+  transform: scale(1.1);
 }
 
 #search-input {
-    width: 300px; /* Increased width */
-    padding: 5px 10px;
-    border: none;
-    border-radius: 15px; /* Rounded input */
+  width: 300px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 15px;
 }
 
 .taskbar-icon {
-    width: 50px; /* Increased size */
-    height: 50px; /* Increased size */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dropdown-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  top: 10px; /* Position dropdown button top right */
+  right: 10px;
+}
+
+#dropdown-menu {
+  position: absolute;
+  top: 50px; /* Positioned below the dropdown button */
+  right: 0;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 10000;
+}
+
+#dropdown-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+#dropdown-menu ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#dropdown-menu ul li:hover {
+  background-color: #555;
 }
 
 #start-menu {
-    position: absolute;
-    bottom: 8vh; /* Position it above the taskbar */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    max-height: 70vh; /* Adjust height as necessary */
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    display: flex; /* Default to flex for proper layout when shown */
-    flex-direction: column;
-    gap: 20px;
-    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
+  position: absolute;
+  bottom: 10vh; /* Positioned above the taskbar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  max-height: 85vh; /* Increased height */
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  z-index: 10000;
 }
 
 #start-menu-icons {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
 }
 
 .start-menu-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
 }
 
 .start-menu-icon i {
-    font-size: 40px;
-    margin-bottom: 10px;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+#start-menu-divider {
+  border-top: 1px solid #555; /* Divider between icons and footer */
+  margin: 10px 0;
 }
 
 #start-menu-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #username {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 #power-off-button {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 #blackout-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000; /* Ensure background is black */
-    color: #fff;
-    display: none; /* Start hidden */
-    align-items: center;
-    justify-content: center;
-    z-index: 10000; /* Ensure it's above all other elements */
-    cursor: default;
-    user-select: none; /* Disable text selection */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: default;
+  user-select: none;
 }
 
 #power-on-button {
-    background-color: transparent;
-    border: 2px solid #fff;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 5px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 5px;
 }
