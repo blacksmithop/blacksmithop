@@ -1,11 +1,10 @@
-# Hello there 🙌
+# Hi
 
+I am Abhinav KM. I like creating unconventional things.
 
-I am currently learning about Neural Networks 🧠
+### Content 
 
-### Content 📖
-My [tech blog](https://python.abhinav.page/) 
+I write on [Medium](https://medium.com/@angstycoder101) and post tidbits on my [blog](https://abhinavkm.notion.site/)
 
-
-### Vanity :page_with_curl:
+#### Stack Overflow
 ![](https://stackoverflow-card.vercel.app/?userID=11323371&theme=dracula)

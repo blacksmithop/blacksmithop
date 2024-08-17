@@ -1,0 +1,43 @@
+.file-icon {
+    font-size: 50px;
+}
+
+.file-window {
+    width: 400px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    z-index: 10;
+    color: #000;
+}
+
+.file-window-header {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #ddd;
+    padding: 5px;
+    margin: -20px -20px 10px -20px;
+}
+
+.file-window-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.file-window-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+}
