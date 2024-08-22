@@ -46,3 +46,15 @@
     transform: scale(1.5);
     margin: 20px 20px 20px 20px;
 }
+
+
+.terminal-window .file-window-content {
+    height: 35vh;
+    width: 25vw
+}
+
+
+.terminal-window .file-window-content .input-group {
+    position: relative;
+    top: 50%;
+}
