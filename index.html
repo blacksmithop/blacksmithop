@@ -15,6 +15,7 @@
   <link href="./static/css/canvas.css" rel="stylesheet">
   <link href="./static/css/dropdown.css" rel="stylesheet">
   <link href="./static/css/modal.css" rel="stylesheet">
+  <link href="./static/css/global.css" rel="stylesheet">
 </head>
 
 <body class="noselect">
@@ -26,17 +27,18 @@
     </header>
   </div>
 
-  <div class="container position-absolute">
+  <div class="container-fluid position-absolute">
     <button type="button" class="btn btn-lg file-icon draggable fa-regular fa-file-lines"></button>
     <button type="button" class="btn btn-lg file-icon draggable fa-solid fa-diagram-project"></button>
     <button type="button" class="btn btn-lg file-icon draggable fa-solid fa-images"></button>
     <button type="button" class="btn btn-lg file-icon draggable fa-solid fa-terminal"></button>
     <button type="button" class="btn btn-lg file-icon draggable fa-regular fa-trash-can"></button>
   </div>
-  <div id="three-container" class="position-absolute top-50 start-50 translate-middle"></div>
+  <!-- Three js -->
+  <!-- <div id="three-container" class="container-fluid position-absolute top-50 start-50 translate-middle"></div> -->
 
   <!-- About Window -->
-  <div class="draggable file-window about-window d-none">
+  <div class="draggable container-fluid  file-window about-window d-none">
     <div class="file-window-header">
       <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
       <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
@@ -57,14 +59,14 @@
     </div>
   </div>
   <!-- Wallpaper Window TODO: Allow background toggle, make thumbnails fit-->
-  <div class="draggable file-window wallpaper-window d-none">
+  <div class="draggable container-fluid  file-window wallpaper-window d-none">
     <div class="file-window-header">
       <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
       <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
       <button type="button" class="btn file-window-btn" id="expand-btn">☐</button>
     </div>
     <div class="file-window-content">
-      <div class="container text-center">
+      <!-- <div class="container text-center">
         <div class="row">
           <div class="col-lg-3">
             <img src="./static/images/photo-1501082183835-b7b33db89c3f.jpg" class="img-thumbnail" alt="...">
@@ -89,12 +91,12 @@
             <img src="./static/images/photo-1529728936071-bf09caff2f99.jpg" class="img-thumbnail" alt="...">
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   </div>
   <!-- Terminal Window -->
-  <div class="draggable file-window terminal-window d-none">
+  <div class="draggable container-fluid  file-window terminal-window d-none">
     <div class="file-window-header">
       <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
       <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
@@ -111,75 +113,18 @@
     </div>
   </div>
   <!-- Projects Window -->
-  <div class="draggable file-window projects-window">
+  <div class="draggable container-fluid file-window projects-window d-none">
     <div class="file-window-header">
       <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
       <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
       <button type="button" class="btn file-window-btn" id="expand-btn">☐</button>
     </div>
     <div class="file-window-content">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-lg-3">
             <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">ProjectName</h5>
-                <p class="card-text">Description</p>
-                <i class="btn fa-regular fa-star"></i>
-                <i class="btn fa-regular fa-eye"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">ProjectName</h5>
-                <p class="card-text">Description</p>
-                <i class="btn fa-regular fa-star"></i>
-                <i class="btn fa-regular fa-eye"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">ProjectName</h5>
-                <p class="card-text">Description</p>
-                <i class="btn fa-regular fa-star"></i>
-                <i class="btn fa-regular fa-eye"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">ProjectName</h5>
-                <p class="card-text">Description</p>
-                <i class="btn fa-regular fa-star"></i>
-                <i class="btn fa-regular fa-eye"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">ProjectName</h5>
-                <p class="card-text">Description</p>
-                <i class="btn fa-regular fa-star"></i>
-                <i class="btn fa-regular fa-eye"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
+              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
                 <h5 class="card-title">ProjectName</h5>
                 <p class="card-text">Description</p>
@@ -191,6 +136,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Footer -->
   <footer class="footer bg-dark">
@@ -214,9 +160,9 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-  <script type="module" src="./static/js/three.module.js"></script>
+  <!-- <script type="module" src="./static/js/three.module.js"></script> -->
   <script src="./static/js/interact-utility.js"></script>
-  <script type="module" src="./static/js/3d-utility.js"></script>
+  <!-- <script type="module" src="./static/js/3d-utility.js"></script> -->
   <script type="module" src="./static/js/window.js"></script>
 </body>
 

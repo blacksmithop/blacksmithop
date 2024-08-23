@@ -1,9 +1,12 @@
 let aboutFile = document.getElementsByClassName("fa-file-lines")[0]
 let wallpaperFile = document.getElementsByClassName("fa-images")[0]
 let projectsFile = document.getElementsByClassName("fa-diagram-project")[0]
+let terminalFile = document.getElementsByClassName("fa-terminal")[0]
 let aboutWindow = document.getElementsByClassName("about-window")[0]
 let wallpaperWindow = document.getElementsByClassName("wallpaper-window")[0]
 let projectsWindow = document.getElementsByClassName("projects-window")[0]
+let terminalWindow = document.getElementsByClassName("terminal-window")[0]
+
 
 window.onload = function(e){ 
     startTime();
@@ -16,6 +19,7 @@ window.onload = function(e){
     aboutFile.addEventListener("click", openAboutWindow);
     wallpaperFile.addEventListener("click", openWallpaperWindow);
     projectsFile.addEventListener("click", openProjectsWindow);
+    terminalFile.addEventListener("click", openTerminalWindow);
 }
 
 function closeFileWindow(event) {
@@ -33,6 +37,10 @@ function openWallpaperWindow() {
 
 function openProjectsWindow() {
   projectsWindow.classList.remove("d-none");
+}
+
+function openTerminalWindow() {
+  terminalWindow.classList.remove("d-none");
 }
 
 function checkTime(i) {
