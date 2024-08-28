@@ -38,7 +38,7 @@
   <!-- <div id="three-container" class="container-fluid position-absolute top-50 start-50 translate-middle"></div> -->
 
   <!-- About Window -->
-  <div class="draggable container-fluid  file-window about-window">
+  <div class="draggable container-fluid  file-window about-window d-none">
     <div class="file-window-header">
       <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
       <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
@@ -113,7 +113,7 @@
     </div>
   </div>
   <!-- Projects Window -->
-  <div class="draggable container-fluid file-window projects-window d-none">
+  <div class="draggable container-fluid file-window projects-window">
     <div class="file-window-header">
       <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
       <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
@@ -122,7 +122,7 @@
     <div class="file-window-content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col">
             <div class="card" style="width: 18rem;">
               <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
@@ -133,9 +133,30 @@
               </div>
             </div>
           </div>
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+              <!-- <img src="..." class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">ProjectName</h5>
+                <p class="card-text">Description</p>
+                <i class="btn fa-regular fa-star"></i>
+                <i class="btn fa-regular fa-eye"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem;">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <h5 class="card-title">ProjectName</h5>
+              <p class="card-text">Description</p>
+              <i class="btn fa-regular fa-star"></i>
+              <i class="btn fa-regular fa-eye"></i>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
   </div>
   <!-- Footer -->
@@ -160,10 +181,10 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-  <!-- <script type="module" src="./static/js/three.module.js"></script> -->
   <script src="./static/js/interact-utility.js"></script>
-  <!-- <script type="module" src="./static/js/3d-utility.js"></script> -->
   <script type="module" src="./static/js/window.js"></script>
+  <script type="module" src="./static/js/profile-stats.js"></script>
+
 </body>
 
 </html>
