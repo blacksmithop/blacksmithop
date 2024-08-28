@@ -6,6 +6,7 @@ api = GhApi()
 
 
 VERSION = "0.0.1"
+USERNAME = "blacksmithop"
 
 app = FastAPI(
     version=VERSION, description="OpenAI Xfly - Demo Insight Processing Toolkit"
@@ -29,4 +30,16 @@ async def github_stats():
 
 @app.get("/githubRepos")
 async def github_repo_stats():
-    return api.repos.list_for_user("blacksmithop")
+    repos = []
+    
+    for i in range(1, 4):
+        result = api.repos.list_for_user(username=USERNAME, per_page=100, page=i)
+        result = list(result) # fastcore.foundation.L -> List
+        result_len = len(result)
+        print(f"Found {result_len} repos on page {i}")
+        if result_len:
+            repos.extend(result)
+        else:
+            break
+    return repos
+
