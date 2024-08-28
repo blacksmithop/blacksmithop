@@ -164,3 +164,9 @@ cython_debug/
 
 Dockerfile
 .dockerignore
+
+# Frontend
+CNAME
+Readme.md
+index.html
+static
