@@ -10,14 +10,13 @@ fetch(apiUrl)
     return response.json();
   })
   .then(data => {
+    console.log(data)
+    // data.sort(function(a, b) { 
+    //   return b.stargazers_count - a.stargazers_count;
+    // })
+    // // sort in DESC order
 
-    var items = data.items;
-    items.sort(function(a, b) { 
-      return b.stargazers_count - a.stargazers_count;
-    })
-    // sort in DESC order
-
-    console.log(items[0])
+    // console.log(data[0])
   
     
   })
