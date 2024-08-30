@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from ghapi.all import GhApi
-
-api = GhApi()
+from fastapi.staticfiles import StaticFiles
 
 
 VERSION = "0.0.1"
@@ -11,6 +10,11 @@ USERNAME = "blacksmithop"
 app = FastAPI(
     version=VERSION, description="OpenAI Xfly - Demo Insight Processing Toolkit"
 )
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+api = GhApi()
+
+
 
 app.add_middleware(
     CORSMiddleware,
