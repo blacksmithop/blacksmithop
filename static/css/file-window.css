@@ -34,13 +34,7 @@
     margin-left: 5px;
 }
 
-.file-window-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 10px;
-}
+
 
 .file-window-content .row .col img {
     transform: scale(1.5);
@@ -67,4 +61,8 @@
 
 .projects-window .file-window-content .container .row .col-lg-3 {
     margin: 25px 25px 25px 25px;
+}
+
+#socials .btn {
+    font-size: 35px;
 }
