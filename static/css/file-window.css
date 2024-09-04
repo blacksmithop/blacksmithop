@@ -67,3 +67,27 @@
     font-size: 35px;
 }
 
+.output div {
+    margin-bottom: 10px; /* Increased spacing between commands */
+}
+
+.input {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.input input {
+    background-color: #000;
+    color: #0f0; /* Green text for command input */
+    border: none;
+    width: calc(100% - 20px);
+    padding: 5px;
+    outline: none;
+    font-weight: bold; /* Bold input text */
+}
+
+.terminal-window {
+    height: 400px;
+}

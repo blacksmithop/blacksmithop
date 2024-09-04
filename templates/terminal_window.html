@@ -1,16 +1,14 @@
-<div class="draggable container-fluid file-window terminal-window d-none">
+<div class="draggable container-fluid file-window terminal-window">
     <div class="file-window-header">
         <button type="button" class="btn file-window-btn" id="close-btn">✕</button>
         <button type="button" class="btn file-window-btn" id="minimize-btn">━</button>
         <button type="button" class="btn file-window-btn" id="expand-btn">☐</button>
     </div>
-    <div class="file-window-content">
-        <div class="container-fluid overflow-auto">
-            <p class="fs-5 rounded-pill border border-success p-2 mb-2">Welcome to the Terminal</p>
+    <div class="file-window-content d-flex flex-column" style="height: 100%; background-color: #222;">
+        <div class="output" id="output" style="flex-grow: 1; padding: 10px; overflow-y: auto; color: #ccc; white-space: pre-wrap; word-wrap: break-word;">
         </div>
-        <div class="input-group">
-            <input type="text" class="form-control" aria-label="Enter command..." placeholder="Enter command...">
-            <button class="btn btn-outline-dark fa-solid fa-play"></button>
+        <div class="input" style="padding: 10px; position: relative;">
+            <input type="text" id="commandInput" class="form-control" placeholder="Enter command..." style="background-color: #000; color: #0f0; border: none; width: 100%; padding: 5px; font-weight: bold; outline: none;">
         </div>
     </div>
 </div>

@@ -3,9 +3,6 @@ window.onload = function (e) {
   let wallpaperFile = document.getElementsByClassName("fa-images")[0]
   let projectsFile = document.getElementsByClassName("fa-diagram-project")[0]
   let terminalFile = document.getElementsByClassName("fa-terminal")[0]
-  
-
-  console.log(document.getElementsByClassName("about-window"))
 
   let aboutWindow = document.getElementsByClassName("about-window")[0]
   let wallpaperWindow = document.getElementsByClassName("wallpaper-window")[0]
@@ -68,4 +65,57 @@ window.onload = function (e) {
   wallpaperFile.addEventListener("click", openWallpaperWindow);
   projectsFile.addEventListener("click", openProjectsWindow);
   terminalFile.addEventListener("click", openTerminalWindow);
+
+
+  const commandInput = document.getElementById('commandInput');
+  const output = document.getElementById('output');
+
+  const dummyData = {
+      'ls': 'Readme.md\nchallenge.py\n.env',
+      'cat Readme.md': `Congratulations, you have found the secret challenge.\n\nQuestion: What goes on four legs in the morning, two legs at noon, and three legs in the evening?\n\nLet's see if you can figure this out.\n\nTo solve the challenge, execute the following command:\n\npython challenge.py --answer [your_answer]\n\nGood luck!`,
+      'cat .env': 'Nice try!',
+      'cat challenge.py': `import argparse\nimport sys\nimport os\nimport jwt  # For encoding/decoding\nfrom dotenv import load_dotenv()\n\n# Load environment variables from .env file\nload_dotenv()\n\n# Fetch secret key from the .env file\nSECRET_KEY = os.getenv("SECRET_KEY")\n\ndef check_answer(answer):\n    # Obfuscated correct answer encoded as JWT\n    encoded_answer = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbnN3ZXIiOiJtYW4ifQ.bM6dVmlLRlWt6sdB7-Tfjhj7M2xPijCglBhEyMnMBVE"\n    ...\n[Content Truncated]`
+  };
+
+  // Focus the input by default
+  commandInput.focus();
+
+  commandInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+          e.preventDefault();
+          const command = commandInput.value.trim();
+          if (command) {
+              output.innerHTML += `<div>$ ${command}</div>`;
+              processCommand(command);
+              commandInput.value = '';
+          }
+      }
+  });
+
+  function processCommand(command) {
+      if (command === 'cat') {
+          output.innerHTML += `<div>Usage: cat [filename]</div>`;
+      } else if (command === 'ls') {
+          output.innerHTML += `<div>${dummyData['ls']}</div>`;
+      } else if (command.startsWith('cat ')) {
+          const fileName = command.split(' ')[1];
+          if (dummyData[command]) {
+              output.innerHTML += `<div>${dummyData[command]}</div>`;
+          } else {
+              output.innerHTML += `<div>File not found: ${fileName}</div>`;
+          }
+      } else if (command === 'help') {
+          output.innerHTML += `<div>Available commands:\nls\ncat [filename]\nhelp\npython challenge.py --answer [your_answer]</div>`;
+      } else if (command.startsWith('python challenge.py')) {
+          const commandParts = command.split(' ');
+          if (commandParts.length === 4 && commandParts[2] === '--answer' && commandParts[3].toLowerCase() === 'man') {
+              output.innerHTML += `<div>Success! You solved the challenge.</div>`;
+          } else {
+              output.innerHTML += `<div>Incorrect answer or usage. Try python challenge.py --answer [your_answer]</div>`;
+          }
+      } else {
+          output.innerHTML += `<div>Command not found: ${command}</div>`;
+      }
+      output.scrollTop = output.scrollHeight;
+  }
 }
