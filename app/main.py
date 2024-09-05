@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from ghapi.all import GhApi
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import FileResponse
 
 
 VERSION = "0.0.1"
@@ -26,6 +27,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse("./static/images/favicon.png")
 
 
 @app.get("/", response_class=HTMLResponse)
