@@ -1,4 +1,4 @@
-name: Docker and Remote SSH Command
+name: Some useful pre-processing tasks
 
 on:
   push:
@@ -6,10 +6,10 @@ on:
       - main
 
 jobs:
-  modify-commit-message:
-    name: Add meaningful commit messages
+  minify:
+    name: Minify repo content
     runs-on: ubuntu-latest
     steps:
-      - name: OpenCommit — improve commits with AI 🧙
-        uses: di-sukharev/opencommit@github-action-v1.0.2
-  
+        - name: Image Actions
+          uses: calibreapp/image-actions@1.1.0
+            
