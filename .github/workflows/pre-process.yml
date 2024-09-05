@@ -12,4 +12,6 @@ jobs:
     steps:
         - name: Image Actions
           uses: calibreapp/image-actions@1.1.0
+          env:
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
             
