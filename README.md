@@ -7,4 +7,4 @@ I occasionally post on [medium](https://medium.com/@angstycoder101) and in my [b
 ![](https://stackoverflow-card.vercel.app/?userID=11323371&theme=dracula)
 
 ---
-[![Docker](https://github.com/blacksmithop/blacksmithop/actions/workflows/docker-build-push.yml/badge.svg)](https://github.com/blacksmithop/blacksmithop/actions/workflows/docker-build-push.yml)
+[![Docker and Remote SSH Command](https://github.com/blacksmithop/blacksmithop/actions/workflows/docker-build-deploy.yml/badge.svg)](https://github.com/blacksmithop/blacksmithop/actions/workflows/docker-build-deploy.yml)
