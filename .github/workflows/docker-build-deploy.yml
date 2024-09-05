@@ -24,6 +24,8 @@ jobs:
         with:
           push: true
           tags: blacksmithop/homepage:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   remote_ssh:
     name: Deploy docker image in remote server
