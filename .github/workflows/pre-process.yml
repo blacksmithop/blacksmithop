@@ -1,0 +1,15 @@
+name: Docker and Remote SSH Command
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  modify-commit-message:
+    name: Add meaningful commit messages
+    runs-on: ubuntu-latest
+    steps:
+      - name: OpenCommit — improve commits with AI 🧙
+        uses: di-sukharev/opencommit@github-action-v1.0.2
+  
