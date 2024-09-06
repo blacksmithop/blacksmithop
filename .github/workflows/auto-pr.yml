@@ -14,8 +14,10 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Create PR
-        uses: poorva17/create-pr-action@main
+        uses: blacksmithop/create-pr-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HEAD_BRANCH: ${{ steps.extract_branch.outputs.branch }}
           BASE_BRANCH: main
+          TITLE: Merge ${{ steps.extract_branch.outputs.branch }} with main
+          BODY: This is a sample description
