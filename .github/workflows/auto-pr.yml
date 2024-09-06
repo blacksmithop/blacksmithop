@@ -16,6 +16,6 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          base: main
-          branch: ${{ steps.extract_branch.outputs.branch }}
-          delete-branch: true
+          base: ${{ steps.extract_branch.outputs.branch }}
+          branch: main
+          # delete-branch: true
