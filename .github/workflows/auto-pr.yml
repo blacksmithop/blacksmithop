@@ -12,4 +12,4 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: stage-pr
+          branch: stage-changes
