@@ -1,11 +1,9 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from ghapi.all import GhApi
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import FileResponse
-
+from ghapi.all import GhApi
 
 VERSION = "0.0.1"
 USERNAME = "blacksmithop"
@@ -36,25 +34,26 @@ async def favicon():
 
 @app.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
-    return templates.TemplateResponse(
-        request=request, name="index.html"
-    )
+    return templates.TemplateResponse(request=request, name="index.html")
+
 
 @app.get("/version")
 async def index():
     return {"version": VERSION}
 
+
 @app.get("/github")
 async def github_stats():
     return api.users.get_by_username("blacksmithop")
 
+
 @app.get("/githubRepos")
 async def github_repo_stats():
     repos = []
-    
+
     for i in range(1, 4):
         result = api.repos.list_for_user(username=USERNAME, per_page=100, page=i)
-        result = list(result) # fastcore.foundation.L -> List
+        result = list(result)  # fastcore.foundation.L -> List
         result_len = len(result)
         print(f"Found {result_len} repos on page {i}")
         if result_len:
@@ -62,4 +61,3 @@ async def github_repo_stats():
         else:
             break
     return repos
-
