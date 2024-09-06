@@ -19,7 +19,8 @@ jobs:
         id: commit_messages
         shell: bash
         run: |
-          commits=$(git log origin/main..${{ steps.extract_branch.outputs.branch }} --pretty=format:"%s")
+          git fetch 
+          commits=$(git log main..${{ steps.extract_branch.outputs.branch }} --pretty=format:"%s")
           echo "commits=$commits" >> $GITHUB_OUTPUT
       - name: Create PR
         uses: blacksmithop/create-pr-action@main
