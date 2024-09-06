@@ -9,13 +9,26 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all branches and history
       - name: Extract branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          base: ${{ steps.extract_branch.outputs.branch }}
-          branch: main
-          # delete-branch: true
+      # - name: Get commit messages
+      #   id: commit_messages
+      #   shell: bash
+      #   run: |
+      #     git fetch 
+      #     commits=$(git log main..${{ steps.extract_branch.outputs.branch }} --pretty=format:"%s")
+      #     echo "commits=$commits" >> $GITHUB_OUTPUT
+      - name: Create PR
+        uses: blacksmithop/create-pr-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          BASE_BRANCH: main
+          TITLE: Merge ${{ steps.extract_branch.outputs.branch }} with main
+          BODY: A description of changes
+            # Changes:
+            # ${{ steps.commit_messages.outputs.commits }}
