@@ -13,6 +13,12 @@ jobs:
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
+      - name: Get commit messages
+        id: commit_messages
+        shell: bash
+        run: |
+          commits=$(git log main..${{ steps.extract_branch.outputs.branch }} --pretty=format:"%s")
+          echo "commits=$commits" >> $GITHUB_OUTPUT
       - name: Create PR
         uses: blacksmithop/create-pr-action@main
         env:
@@ -20,4 +26,6 @@ jobs:
           HEAD_BRANCH: ${{ steps.extract_branch.outputs.branch }}
           BASE_BRANCH: main
           TITLE: Merge ${{ steps.extract_branch.outputs.branch }} with main
-          BODY: This is a sample description
+          BODY: |
+            Changes:
+            ${{ steps.commit_messages.outputs.commits }}
