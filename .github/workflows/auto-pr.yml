@@ -1,8 +1,8 @@
 name: Create PR when a new branch is pushed
 on:
   push:
-    branches:
-      - '!main'
+    branches-ignore:
+      - main
 jobs:
   productionPromotion:
     runs-on: ubuntu-latest
