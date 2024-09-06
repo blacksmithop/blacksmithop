@@ -1,0 +1,17 @@
+name: Create PR when a new branch is pushed
+on:
+  push:
+    branches:
+      - '!main'
+jobs:
+  productionPromotion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: ${{ steps.extract_branch.outputs.branch }}
