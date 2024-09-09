@@ -1,6 +1,6 @@
 # Hello there,
 
-I am Abhinav KM and I like to bringing unconventional ideas to life.
+I am Abhinav KM and I like to bring unconventional ideas to life.
 
 I occasionally post on [medium](https://medium.com/@angstycoder101) and in my [blog](https://abhinavkm.notion.site/)
 
