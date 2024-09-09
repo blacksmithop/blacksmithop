@@ -8,13 +8,9 @@ from utils.github_stats import get_github_projects, get_profile_data
 
 VERSION = "0.0.1"
 
-app = FastAPI(
-    version=VERSION, description="API server for my personal website"
-)
+app = FastAPI(version=VERSION, description="API server for my personal website")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-
 
 
 app.add_middleware(

@@ -11,21 +11,21 @@ fetch(apiUrl)
   })
   .then(data => {
     console.log(data)
-    // data.sort(function(a, b) { 
+    // data.sort(function(a, b) {
     //   return b.stargazers_count - a.stargazers_count;
     // })
     // // sort in DESC order
 
     // console.log(data[0])
-  
-    
+
+
   })
   .catch(error => {
 
     console.error('There was a problem with the fetch operation:', error);
   });
-  
 
-window.onload = function(e){ 
+
+window.onload = function(e){
     console.log("Project stats")
 }

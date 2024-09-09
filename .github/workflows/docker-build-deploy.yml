@@ -42,4 +42,3 @@ jobs:
           script: |
             cd /home/abhi/Projects/Api
             sh deploy.sh
-          
