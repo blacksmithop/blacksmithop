@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from ghapi.all import GhApi
+from utils.github_stats import get_github_projects, get_profile_data
+
 
 VERSION = "0.0.1"
-USERNAME = "blacksmithop"
 
 app = FastAPI(
     version=VERSION, description="OpenAI Xfly - Demo Insight Processing Toolkit"
@@ -15,7 +15,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-api = GhApi()
 
 
 app.add_middleware(
@@ -42,23 +41,13 @@ async def index():
     return {"version": VERSION}
 
 
-@app.get("/github")
+@app.get("/github_stats")
 async def github_stats():
-    return api.users.get_by_username("blacksmithop")
+    profile_data = get_profile_data()
+    return profile_data
 
 
-@app.get("/githubRepos")
+@app.get("/github_repos")
 async def github_repo_stats():
-    repos = []
-    # TODO Filter out response
-    # Return only necessary properties
-    for i in range(1, 4):
-        result = api.repos.list_for_user(username=USERNAME, per_page=100, page=i)
-        result = list(result)  # fastcore.foundation.L -> List
-        result_len = len(result)
-        print(f"Found {result_len} repos on page {i}")
-        if result_len:
-            repos.extend(result)
-        else:
-            break
+    repos = get_github_projects()
     return repos
