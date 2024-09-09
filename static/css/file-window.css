@@ -36,31 +36,14 @@
 
 
 
-.file-window-content .row .col img {
-    transform: scale(1.5);
-    margin: 20px 20px 20px 20px;
-}
 
-
-.terminal-window .file-window-content {
-    height: 35vh;
-    width: 25vw
-}
-
-
-.terminal-window .file-window-content .input-group {
-    position: relative;
-    top: 50%;
-}
-
-
-.projects-window .file-window-content {
+.file-window-content {
     height: fit-content;
     width: 75vw;
-}
-
-.projects-window .file-window-content .container .row .col-lg-3 {
+    height: fit-content;
+    width: 25vw;
     margin: 25px 25px 25px 25px;
+
 }
 
 #socials .btn {
