@@ -9,7 +9,7 @@ from utils.github_stats import get_github_projects, get_profile_data
 VERSION = "0.0.1"
 
 app = FastAPI(
-    version=VERSION, description="OpenAI Xfly - Demo Insight Processing Toolkit"
+    version=VERSION, description="API server for my personal website"
 )
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="templates")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["localhost", "http://abhinavkm.com/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
