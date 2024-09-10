@@ -40,5 +40,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/abhi/Projects/Api
+            cd /home/abhi/Projects/blacksmithop
             sh deploy.sh
