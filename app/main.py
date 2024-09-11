@@ -3,8 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from utils.github_stats import get_github_projects, get_profile_data
 
+from utils.github_stats import get_github_projects, get_profile_data
+from utils.helper import chunks
 
 VERSION = "0.0.1"
 
@@ -29,7 +30,11 @@ async def favicon():
 
 @app.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
-    return templates.TemplateResponse(request=request, name="index.html")
+    repos = get_github_projects()[:12]
+    repo_chunks = chunks(repos, 4)
+    return templates.TemplateResponse(
+        request=request, name="index.html", context={"repos": repo_chunks}
+    )
 
 
 @app.get("/version")

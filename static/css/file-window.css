@@ -3,7 +3,6 @@
 }
 
 .file-window {
-    width: fit-content;
     border: 1px solid #000;
     border-radius: 5px;
     background-color: #fff;
@@ -36,10 +35,8 @@
 
 
 .file-window-content {
-    height: fit-content;
     width: 75vw;
     height: fit-content;
-    width: 25vw;
     margin: 25px 25px 25px 25px;
 
 }

@@ -6,85 +6,32 @@
     </div>
     <div class="file-window-content">
         <div class="container-fluid">
+            {% for repo_chunk in repos %}
             <div class="row">
+                {% for repo in repo_chunk %}
                 <div class="col-3">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">Name</h5>
+                            <h5 class="card-title">{{repo.name}}</h5>
                             <div class="card-text">
                                 <figure>
                                     <blockquote class="blockquote">
-                                        <p>Description.</p>
+                                        <p>{{repo.description}}</p>
                                     </blockquote>
                                     <figcaption class="blockquote-footer">
-                                        Created In
+                                        {{repo.created_at}}
                                     </figcaption>
                                 </figure>
                             </div>
-                            <i class="btn fa-regular fa-star"></i>
-                            <i class="btn fa-regular fa-eye"></i>
+                            <i class="btn fa-regular fa-star"> {{repo.stargazers_count}}</i>
+                            <i class="btn fa-regular fa-eye"> {{repo.watchers_count}}</i>
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Name</h5>
-                            <div class="card-text">
-                                <figure>
-                                    <blockquote class="blockquote">
-                                        <p>Description.</p>
-                                    </blockquote>
-                                    <figcaption class="blockquote-footer">
-                                        Created In
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <i class="btn fa-regular fa-star"></i>
-                            <i class="btn fa-regular fa-eye"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Name</h5>
-                            <div class="card-text">
-                                <figure>
-                                    <blockquote class="blockquote">
-                                        <p>Description.</p>
-                                    </blockquote>
-                                    <figcaption class="blockquote-footer">
-                                        Created In
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <i class="btn fa-regular fa-star"></i>
-                            <i class="btn fa-regular fa-eye"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Name</h5>
-                            <div class="card-text">
-                                <figure>
-                                    <blockquote class="blockquote">
-                                        <p>Description.</p>
-                                    </blockquote>
-                                    <figcaption class="blockquote-footer">
-                                        Created In
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <i class="btn fa-regular fa-star"></i>
-                            <i class="btn fa-regular fa-eye"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more project cards here -->
+                {% endfor %}
+                 <!-- Add more project cards here -->
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
