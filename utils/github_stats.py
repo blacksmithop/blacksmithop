@@ -1,6 +1,7 @@
-from ghapi.all import GhApi
 from os import getenv
+
 from dotenv import load_dotenv
+from ghapi.all import GhApi
 
 load_dotenv()
 
