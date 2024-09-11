@@ -35,7 +35,7 @@
 
 
 .file-window-content {
-    width: 75vw;
+    width: fit-content;
     height: fit-content;
     margin: 25px 25px 25px 25px;
 
