@@ -27,7 +27,7 @@ export const About = () => {
       <div className="text-center max-w-3xl mx-auto">
         <div className="w-32 h-32 mx-auto mb-6">
           <img
-            src="www.abhinavkm.com/profileImage"
+            src="https://www.abhinavkm.com/profileImage"
             onError={(e) => {
               e.currentTarget.src = profileImage;
             }}
