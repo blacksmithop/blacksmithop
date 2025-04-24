@@ -1,6 +1,6 @@
 import { Download } from "lucide-react";
 import { TechStack } from "../types";
-import profileImage from '@assets/images/profileImage.jpg'
+import profileImage from '@assets/images/profileImage.jpg';
 
 const techStack: TechStack[] = [
   { name: "TypeScript", icon: "🔷" },
@@ -17,7 +17,6 @@ const techStack: TechStack[] = [
   { name: "REST", icon: "🔌" },
 ];
 
-
 export const About = () => {
   return (
     <section
@@ -30,8 +29,8 @@ export const About = () => {
           <img
             src="www.abhinavkm.com/profileImage"
             onError={(e) => {
-            e.currentTarget.src = profileImage;
-          }}
+              e.currentTarget.src = profileImage;
+            }}
             alt="Abhinav KM"
             className="rounded-full w-full h-full object-cover shadow-lg"
           />
@@ -62,7 +61,7 @@ export const About = () => {
             {techStack.map((tech) => (
               <div
                 key={tech.name}
-                className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out cursor-grab"
               >
                 <span className="text-2xl mb-2">{tech.icon}</span>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
