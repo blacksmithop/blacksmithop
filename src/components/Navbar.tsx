@@ -42,7 +42,7 @@ export const Navbar = () => {
           </div>
           <div className="flex items-center space-x-4">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/blacksmithop"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -50,7 +50,7 @@ export const Navbar = () => {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/abhinav--km/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -58,7 +58,7 @@ export const Navbar = () => {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="https://medium.com/@yourusername"
+              href="https://medium.com/@angstycoder101"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -66,7 +66,7 @@ export const Navbar = () => {
               <BookOpen className="w-5 h-5" />
             </a>
             <a
-              href="https://stackoverflow.com/users/youruserid"
+              href="https://stackoverflow.com/users/11323371/insertcheesyline"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -76,7 +76,7 @@ export const Navbar = () => {
               </svg>
             </a>
             <a
-              href="https://www.codewars.com/users/yourusername"
+              href="https://www.codewars.com/users/blacksmithop"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
