@@ -1,81 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
 import { ExternalLink, Star, Github } from 'lucide-react';
+import { fetchGithubRepos } from '../api';
 import { Project } from '../types';
 
-// Simulated GitHub API response
-const mockGithubRepos: Project[] = [
-  {
-    name: "portfolio-website",
-    description: "Personal portfolio website built with React, TypeScript, and TailwindCSS. Features dark mode, responsive design, and API integration.",
-    stars: 24,
-    url: "https://github.com/yourusername/portfolio-website",
-    homepage: "https://yourdomain.com",
-    language: "TypeScript"
-  },
-  {
-    name: "task-management-api",
-    description: "RESTful API for task management built with Node.js and Express. Includes authentication, task organization, and real-time updates.",
-    stars: 18,
-    url: "https://github.com/yourusername/task-management-api",
-    language: "JavaScript"
-  },
-  {
-    name: "weather-dashboard",
-    description: "Real-time weather dashboard using OpenWeather API. Features location search, 5-day forecast, and weather alerts.",
-    stars: 32,
-    url: "https://github.com/yourusername/weather-dashboard",
-    homepage: "https://weather.yourdomain.com",
-    language: "TypeScript"
-  },
-  {
-    name: "e-commerce-platform",
-    description: "Full-stack e-commerce platform with product management, cart functionality, and secure payment processing.",
-    stars: 45,
-    url: "https://github.com/yourusername/e-commerce-platform",
-    homepage: "https://shop.yourdomain.com",
-    language: "TypeScript"
-  },
-  {
-    name: "realtime-chat-app",
-    description: "WebSocket-based chat application with private messaging, group chats, and file sharing capabilities.",
-    stars: 29,
-    url: "https://github.com/yourusername/realtime-chat-app",
-    language: "JavaScript"
-  },
-  {
-    name: "ai-image-generator",
-    description: "AI-powered image generation tool using stable diffusion. Create unique artwork from text descriptions.",
-    stars: 56,
-    url: "https://github.com/yourusername/ai-image-generator",
-    homepage: "https://ai-art.yourdomain.com",
-    language: "Python"
-  }
-];
-
 export const Projects = () => {
-  const { data: projects = [], isLoading } = useQuery({
+  const { data: projects = [], isLoading, error } = useQuery({
     queryKey: ['projects'],
-    queryFn: async () => {
-      try {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        // In production, replace with actual API call
-        // const response = await fetch('https://api.github.com/users/yourusername/repos');
-        // if (!response.ok) throw new Error('Failed to fetch projects');
-        // return response.json();
-        return mockGithubRepos;
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-        return mockGithubRepos;
-      }
-    },
-    initialData: mockGithubRepos,
+    queryFn: () => fetchGithubRepos(10),
+    retry: false, // Rely on api.ts retry logic
   });
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <p className="text-red-500">Failed to load projects. Please try again later.</p>
       </div>
     );
   }

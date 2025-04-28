@@ -1,6 +1,8 @@
-export interface TechStack {
-  name: string;
-  icon: string;
+export interface ProfileData {
+  profileImage: string;
+  description: string;
+  resumeUrl: string;
+  skills: TechStackItem[];
 }
 
 export interface Project {
@@ -23,4 +25,9 @@ export interface ApiResponse {
   success: boolean;
   message: string;
   data?: any;
+}
+
+export interface TechStackItem {
+  name: string;
+  icon: string;
 }
