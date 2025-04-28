@@ -69,7 +69,22 @@ export const fetchProfileData = async (): Promise<ProfileData> => {
 
 export const fetchGithubRepos = async (count: number = 10): Promise<Project[]> => {
   try {
-    return await fetchWithRetry<Project[]>(`${BASE_URL}/github-repos?count=${count}`);
+    const repos = await fetchWithRetry<any[]>(`${BASE_URL}/github-repos?count=${count}`);
+    
+    // Map API response to Project type, sort by stars, and take top 'count'
+    const projects: Project[] = repos
+      .map(repo => ({
+        name: repo.name,
+        description: repo.description || 'No description available',
+        stars: repo.stargazers_count,
+        url: repo.html_url,
+        homepage: repo.homepage || undefined,
+        language: repo.language || 'Unknown'
+      }))
+      .sort((a, b) => b.stars - a.stars) // Sort by stars descending
+      .slice(0, count); // Take top 'count' projects
+
+    return projects;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : 'Failed to fetch GitHub repos');
   }
