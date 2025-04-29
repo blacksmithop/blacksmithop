@@ -1,7 +1,7 @@
 import { ProfileData, Project, ContactForm, ApiResponse, TechStackItem } from './types';
 
 // Base URL from Vite environment variable with fallback
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.example.com';
+const BASE_URL = 'https://api.abhinavkm.com';
 
 // Utility function for delaying retries
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
