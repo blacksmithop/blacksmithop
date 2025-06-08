@@ -1,26 +1,48 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any, Optional
-from aiodocker import Docker
-from aiodocker.exceptions import DockerError
+import docker
+from docker.errors import DockerException
 from datetime import datetime, timezone
 import logging
 import asyncio
+import platform
+import os
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-async def get_docker_client():
-    """Initialize async Docker client with error handling"""
+def get_docker_client():
+    """Initialize Docker client with OS-specific handling"""
     try:
-        client = Docker()
+        # Determine Docker endpoint based on OS
+        docker_host = os.getenv("DOCKER_HOST")
+        if docker_host:
+            logger.info(f"Using DOCKER_HOST: {docker_host}")
+        else:
+            if platform.system() == "Windows":
+                docker_host = "npipe:////./pipe/docker_engine"
+                logger.info("Using Windows named pipe for Docker")
+            else:
+                docker_host = "unix:///var/run/docker.sock"
+                logger.info("Using Unix socket for Docker")
+
+        # Initialize Docker client
+        client = docker.DockerClient(base_url=docker_host)
         # Test connection
-        await client.version()
+        version = client.version()
+        logger.info(f"Connected to Docker daemon, version: {version['Version']}")
         return client
-    except DockerError as e:
+    except DockerException as e:
         logger.error(f"Failed to connect to Docker: {e}")
         raise HTTPException(
             status_code=503,
-            detail="Unable to connect to Docker daemon. Make sure Docker is running."
+            detail=f"Unable to connect to Docker daemon. Ensure Docker is running and accessible (endpoint: {docker_host})."
+        )
+    except Exception as e:
+        logger.error(f"Unexpected error connecting to Docker: {e}")
+        raise HTTPException(
+            status_code=503,
+            detail=f"Failed to initialize Docker client: {str(e)}"
         )
 
 def format_uptime(created_timestamp: str) -> str:
@@ -61,8 +83,9 @@ def format_bytes(bytes_value: int) -> str:
 
 async def get_container_stats(container) -> Dict[str, Any]:
     """Get container resource usage statistics"""
+    loop = asyncio.get_running_loop()
     try:
-        if container['State']['Status'] != 'running':
+        if container.status != 'running':
             return {
                 'cpu_usage': 0,
                 'memory_usage': 0,
@@ -70,8 +93,8 @@ async def get_container_stats(container) -> Dict[str, Any]:
                 'network_tx': '0 B'
             }
         
-        # Get container stats (non-blocking)
-        stats = await container.stats(stream=False)
+        # Run synchronous stats call in thread pool
+        stats = await loop.run_in_executor(None, lambda: container.stats(stream=False))
         
         # Calculate CPU usage percentage
         cpu_usage = 0
@@ -105,7 +128,7 @@ async def get_container_stats(container) -> Dict[str, Any]:
         }
     
     except Exception as e:
-        logger.warning(f"Error getting container stats: {e}")
+        logger.warning(f"Error getting container stats for {container.name}: {e}")
         return {
             'cpu_usage': 0,
             'memory_usage': 0,
@@ -116,10 +139,12 @@ async def get_container_stats(container) -> Dict[str, Any]:
 @router.get("/health")
 async def health_check():
     """Health check endpoint"""
+    loop = asyncio.get_running_loop()
+    client = None
     try:
-        client = await get_docker_client()
-        version = await client.version()
-        await client.close()
+        # Run synchronous client initialization in thread pool
+        client = await loop.run_in_executor(None, get_docker_client)
+        version = await loop.run_in_executor(None, client.version)
         return {
             "status": "healthy",
             "docker_version": version['Version'],
@@ -131,14 +156,19 @@ async def health_check():
             "error": str(e),
             "timestamp": datetime.now().isoformat()
         }
+    finally:
+        if client:
+            await loop.run_in_executor(None, client.close)
 
 @router.get("/docker-services")
 async def get_docker_services():
     """Get all Docker containers with their details"""
+    loop = asyncio.get_running_loop()
     client = None
     try:
-        client = await get_docker_client()
-        containers = await client.containers.list(all=True)  # Include stopped containers
+        # Run synchronous client initialization in thread pool
+        client = await loop.run_in_executor(None, get_docker_client)
+        containers = await loop.run_in_executor(None, lambda: client.containers.list(all=True))
         
         # Fetch stats concurrently
         stats_tasks = [get_container_stats(container) for container in containers]
@@ -148,7 +178,7 @@ async def get_docker_services():
         for container, stats in zip(containers, stats_results):
             try:
                 # Get container attributes
-                attrs = container._container
+                attrs = container.attrs
                 
                 # Extract port mappings
                 ports = []
@@ -165,11 +195,11 @@ async def get_docker_services():
                 # Build service info
                 service_info = {
                     'id': container.short_id,
-                    'name': container._container['Name'].lstrip('/'),
-                    'status': container._container['State']['Status'],
+                    'name': container.name,
+                    'status': container.status,
                     'image': attrs['Config']['Image'],
                     'created': attrs['Created'],
-                    'uptime': format_uptime(attrs['Created']) if container._container['State']['Status'] == 'running' else '0 minutes',
+                    'uptime': format_uptime(attrs['Created']) if container.status == 'running' else '0 minutes',
                     'ports': ports,
                     **(stats if isinstance(stats, dict) else {
                         'cpu_usage': 0,
@@ -182,7 +212,7 @@ async def get_docker_services():
                 services.append(service_info)
                 
             except Exception as e:
-                logger.error(f"Error processing container {container._container['Name']}: {e}")
+                logger.error(f"Error processing container {container.name}: {e}")
                 continue
         
         return {
@@ -200,36 +230,36 @@ async def get_docker_services():
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
     finally:
         if client:
-            await client.close()
+            await loop.run_in_executor(None, client.close)
 
 @router.get("/docker-services/{container_id}")
 async def get_docker_service_details(container_id: str):
     """Get detailed information for a specific container"""
+    loop = asyncio.get_running_loop()
     client = None
     try:
-        client = await get_docker_client()
+        # Run synchronous client initialization in thread pool
+        client = await loop.run_in_executor(None, get_docker_client)
         
         try:
-            container = await client.containers.get(container_id)
-        except DockerError as e:
-            if e.status == 404:
-                raise HTTPException(status_code=404, detail="Container not found")
-            raise
+            container = await loop.run_in_executor(None, lambda: client.containers.get(container_id))
+        except docker.errors.NotFound:
+            raise HTTPException(status_code=404, detail="Container not found")
         
-        attrs = container._container
+        attrs = container.attrs
         stats = await get_container_stats(container)
         
         # Extract detailed information
         detailed_info = {
             'id': container.id,
             'short_id': container.short_id,
-            'name': attrs['Name'].lstrip('/'),
-            'status': attrs['State']['Status'],
+            'name': container.name,
+            'status': container.status,
             'image': attrs['Config']['Image'],
             'created': attrs['Created'],
             'started': attrs.get('State', {}).get('StartedAt', ''),
             'finished': attrs.get('State', {}).get('FinishedAt', ''),
-            'uptime': format_uptime(attrs['Created']) if attrs['State']['Status'] == 'running' else '0 minutes',
+            'uptime': format_uptime(attrs['Created']) if container.status == 'running' else '0 minutes',
             'restart_count': attrs.get('RestartCount', 0),
             'platform': attrs.get('Platform', 'unknown'),
             'architecture': attrs.get('Architecture', 'unknown'),
@@ -261,4 +291,4 @@ async def get_docker_service_details(container_id: str):
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
     finally:
         if client:
-            await client.close()
+            await loop.run_in_executor(None, client.close)
