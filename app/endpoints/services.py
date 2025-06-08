@@ -80,9 +80,10 @@ def get_container_stats(container) -> Dict[str, Any]:
             system_delta = stats['cpu_stats']['system_cpu_usage'] - \
                           stats['precpu_stats']['system_cpu_usage']
             
-            if system_delta > 0:
-                cpu_usage = (cpu_delta / system_delta) * \
-                           len(stats['cpu_stats']['cpu_usage']['percpu_usage']) * 100
+            # Check if percpu_usage exists and is a list
+            num_cpus = len(stats['cpu_stats']['cpu_usage'].get('percpu_usage', [])) or 1
+            if system_delta > 0 and num_cpus > 0:
+                cpu_usage = (cpu_delta / system_delta) * num_cpus * 100
         
         # Get memory usage in MB
         memory_usage = 0
