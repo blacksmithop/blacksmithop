@@ -5,23 +5,16 @@ from pydantic import BaseModel
 class TechStackItem(BaseModel):
     name: str
     icon: str
+    color: str
 
 router = APIRouter()
 
-@router.get("/tech-stack")
-async def get_tech_stack() -> List[TechStackItem]:
+@router.get("/tech-stack", response_model=List[TechStackItem])
+async def get_tech_stack():
     tech_stack = [
-        {"name": "TypeScript", "icon": "🔷"},
-        {"name": "Python", "icon": "🐍"},
-        {"name": "JavaScript", "icon": "💛"},
-        {"name": "React", "icon": "⚛️"},
-        {"name": "Node.js", "icon": "💚"},
-        {"name": "Docker", "icon": "🐳"},
-        {"name": "Git", "icon": "📚"},
-        {"name": "AWS", "icon": "☁️"},
-        {"name": "MongoDB", "icon": "🍃"},
-        {"name": "Redis", "icon": "🔴"},
-        {"name": "GraphQL", "icon": "📊"},
-        {"name": "REST", "icon": "🔌"},
+        {"name": "Python", "icon": "fab fa-python", "color": "#3776AB"},
+        {"name": "Docker", "icon": "fab fa-docker", "color": "#2496ED"},
+        {"name": "Git", "icon": "fab fa-git-alt", "color": "#F05032"},
+        {"name": "Azure", "icon": "fab fa-microsoft", "color": "#0078D4"},
     ]
     return tech_stack
