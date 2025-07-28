@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const API_BASE_URL = "http://localhost:8080";
+  const API_BASE_URL = "https://api.abhinavkm.com";
 
   // --- Dark Mode ---
   const toggleButton = document.getElementById("dark-mode-toggle");
