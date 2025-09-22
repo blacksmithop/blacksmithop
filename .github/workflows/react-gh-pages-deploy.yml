@@ -6,11 +6,11 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/react-gh-pages-deploy.yml'
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/react-gh-pages-deploy.yml'
+  # pull_request:
+  #   branches: [ main ]
+  #   paths:
+  #     - 'frontend/**'
+  #     - '.github/workflows/react-gh-pages-deploy.yml'
 
 jobs:
   build-and-deploy:
@@ -47,33 +47,13 @@ jobs:
         run: pnpm run build
         working-directory: ./frontend
       
-      - name: Verify build output
-        run: |
-          echo "Checking build output directory..."
-          ls -la
-          if [ -d "out" ]; then
-            echo "✓ out directory exists"
-            ls -la out/
-          elif [ -d ".next" ]; then
-            echo "✓ .next directory exists"
-            ls -la .next/
-          elif [ -d "dist" ]; then
-            echo "✓ dist directory exists"
-            ls -la dist/
-          else
-            echo "❌ No standard build directory found"
-            echo "Available directories:"
-            find . -maxdepth 2 -type d -name "*build*" -o -name "*out*" -o -name "*dist*" -o -name "*.next*"
-          fi
-        working-directory: ./frontend
-      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./frontend/out
+          path: ./frontend/.next
       
       - name: Deploy to GitHub Pages
         id: deployment
