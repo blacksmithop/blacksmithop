@@ -6,11 +6,11 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/react-gh-pages-deploy.yml'
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/react-gh-pages-deploy.yml'
+  # pull_request:
+  #   branches: [ main ]
+  #   paths:
+  #     - 'frontend/**'
+  #     - '.github/workflows/react-gh-pages-deploy.yml'
 
 jobs:
   build-and-deploy:
