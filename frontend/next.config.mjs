@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} **/
 const nextConfig = {
   output: 'export', // Enables static export
   basePath: '/blacksmithop', // Matches your GitHub Pages repo path
