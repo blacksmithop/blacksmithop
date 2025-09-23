@@ -5,4 +5,4 @@ const nextConfig = {
   trailingSlash: true, // Ensures paths like /projects/ work correctly
 };
 
-module.exports = nextConfig;
+export default nextConfig;
