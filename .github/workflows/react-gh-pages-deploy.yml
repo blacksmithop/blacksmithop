@@ -41,5 +41,5 @@ jobs:
         run: pnpm run deploy
         working-directory: ./frontend
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
           GITHUB_REPOSITORY: blacksmithop/blacksmithop
