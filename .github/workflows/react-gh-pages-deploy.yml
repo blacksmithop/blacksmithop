@@ -1,45 +1,37 @@
-name: Deploy to GitHub Pages
+name: Build and push to gh-pages branch
 
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/react-gh-pages-deploy.yml'
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  deploy:
+  run-action:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        # this allows the workflow to access the repository - https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-    
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-    
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-    
+          node-version: 18.x
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
       - name: Install dependencies
-        run: pnpm install
-        working-directory: ./frontend
-    
-      - name: Configure Git user
+        run: npm ci
+
+      - name: Build and deploy
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-    
-      - name: Deploy to GitHub Pages
-        run: pnpm run deploy
-        working-directory: ./frontend
+          git config --global user.name $user_name
+          git config --global user.email $user_email
+          git remote set-url origin https://${github_token}@github.com/${repository}
+          npm run deploy
         env:
-          GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
-          GITHUB_REPOSITORY: blacksmithop/blacksmithop
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          github_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+          repository: ${{ github.repository }}
