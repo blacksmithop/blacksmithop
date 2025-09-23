@@ -1,15 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
-}
+  output: 'export', // Enables static export
+  basePath: '/blacksmithop', // Matches your GitHub Pages repo path
+  trailingSlash: true, // Ensures paths like /projects/ work correctly
+};
 
-export default nextConfig
+module.exports = nextConfig;
