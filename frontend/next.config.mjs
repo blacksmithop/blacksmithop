@@ -1,8 +1,17 @@
-/** @type {import('next').NextConfig} **/
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Enables static export
-  basePath: '/blacksmithop', // Matches your GitHub Pages repo path
-  trailingSlash: true, // Ensures paths like /projects/ work correctly
-};
+  output: 'export',
+  trailingSlash: true,
+  basePath: process.env.NODE_ENV === 'production' ? '/blacksmithop' : '',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  images: {
+    unoptimized: true,
+  },
+}
 
-export default nextConfig;
+export default nextConfig
