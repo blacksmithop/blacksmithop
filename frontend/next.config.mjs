@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/blacksmithop' : '',
+  basePath: '',
   eslint: {
     ignoreDuringBuilds: true,
   },
