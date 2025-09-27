@@ -6,7 +6,11 @@ import { ArrowLeft } from "lucide-react"
 interface AboutData {
   image?: string
   resume?: string
-  description?: string
+  about?: {
+    quote?: string
+    short_description?: string
+    long_description?: string
+  }
 }
 
 export default function AboutPage() {
@@ -28,10 +32,12 @@ export default function AboutPage() {
 
   useEffect(() => {
     const fetchAboutData = async () => {
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.abhinavkm.com"
+
       const endpoints = [
-        { key: "image", url: "http://localhost:8080/image" },
-        { key: "resume", url: "http://localhost:8080/resume" },
-        { key: "description", url: "http://localhost:8080/about" },
+        { key: "image", url: `${apiBaseUrl}/image` },
+        { key: "resume", url: `${apiBaseUrl}/resume` },
+        { key: "about", url: `${apiBaseUrl}/about` },
       ]
 
       const results: AboutData = {}
@@ -42,8 +48,13 @@ export default function AboutPage() {
           try {
             const response = await fetch(url)
             if (response.ok) {
-              const data = await response.text()
-              results[key as keyof AboutData] = data
+              if (key === "about") {
+                const data = await response.json()
+                results[key as keyof AboutData] = data
+              } else {
+                const data = await response.text()
+                results[key as keyof AboutData] = data
+              }
               successCount++
             }
           } catch (error) {
@@ -112,10 +123,28 @@ export default function AboutPage() {
                 </div>
               )}
 
-              {/* Description section */}
-              {aboutData.description && (
-                <div className="prose prose-lg max-w-none text-foreground">
-                  <div dangerouslySetInnerHTML={{ __html: aboutData.description }} />
+              {aboutData.about && (
+                <div className="space-y-8 text-center">
+                  {/* Quote section */}
+                  {aboutData.about.quote && (
+                    <blockquote className="text-2xl md:text-3xl font-bold text-foreground italic">
+                      "{aboutData.about.quote}"
+                    </blockquote>
+                  )}
+
+                  {/* Short description */}
+                  {aboutData.about.short_description && (
+                    <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
+                      {aboutData.about.short_description}
+                    </p>
+                  )}
+
+                  {/* Long description */}
+                  {aboutData.about.long_description && (
+                    <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-2xl mx-auto">
+                      {aboutData.about.long_description}
+                    </p>
+                  )}
                 </div>
               )}
 
