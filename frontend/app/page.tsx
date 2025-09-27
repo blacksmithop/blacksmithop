@@ -163,7 +163,7 @@ const ActionIcons = ({ mounted }: { mounted: boolean }) => {
           <polyline points="10,9 9,9 8,9" />
         </svg>
       ),
-      onClick: () => window.open("https://example.com/resume.pdf", "_blank"),
+      onClick: () => (window.location.href = "/about"),
     },
     {
       name: "Contact",

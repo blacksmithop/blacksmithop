@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware import Middleware
 from app.middleware.logging_middleware import LoggingMiddleware
-from app.endpoints import github_repos, static_files, tech_stack, contact, services, docker
+from app.endpoints import about_section
 
 middleware = [
     Middleware(LoggingMiddleware),
@@ -11,4 +11,4 @@ middleware = [
 
 app = FastAPI(middleware=middleware)
 
-app.include_router(static_files.router)
+app.include_router(about_section.router)
