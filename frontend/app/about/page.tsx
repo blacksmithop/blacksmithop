@@ -1,11 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, FileText } from "lucide-react"
 
 interface AboutData {
   image?: string
-  resume?: string
   about?: {
     quote?: string
     short_description?: string
@@ -36,7 +35,6 @@ export default function AboutPage() {
 
       const endpoints = [
         { key: "image", url: `${apiBaseUrl}/image` },
-        { key: "resume", url: `${apiBaseUrl}/resume` },
         { key: "about", url: `${apiBaseUrl}/about` },
       ]
 
@@ -51,9 +49,10 @@ export default function AboutPage() {
               if (key === "about") {
                 const data = await response.json()
                 results[key as keyof AboutData] = data
-              } else {
-                const data = await response.text()
-                results[key as keyof AboutData] = data
+              } else if (key === "image") {
+                const blob = await response.blob()
+                const imageUrl = URL.createObjectURL(blob)
+                results[key as keyof AboutData] = imageUrl
               }
               successCount++
             }
@@ -112,16 +111,34 @@ export default function AboutPage() {
             </div>
           ) : (
             <div className="space-y-12">
-              {/* Image section */}
               {aboutData.image && (
                 <div className="text-center">
-                  <img
-                    src={aboutData.image || "/placeholder.svg"}
-                    alt="Abhinav KM"
-                    className="mx-auto rounded-lg shadow-lg max-w-md w-full"
-                  />
+                  <div className="relative inline-block">
+                    {/* Rotating outer ring */}
+                    <div
+                      className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 animate-spin"
+                      style={{ animationDuration: "3s" }}
+                    ></div>
+                    <div
+                      className="absolute inset-1 rounded-full border-2 border-transparent bg-gradient-to-l from-cyan-500 via-purple-500 to-blue-500 animate-spin"
+                      style={{ animationDuration: "2s", animationDirection: "reverse" }}
+                    ></div>
+
+                    {/* Profile image container */}
+                    <div className="relative p-2">
+                      <img
+                        src={aboutData.image || "/placeholder.svg"}
+                        alt="Abhinav KM"
+                        className="w-48 h-48 rounded-full object-cover border-4 border-background shadow-2xl"
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
+
+              <div className="text-center">
+                <h2 className="text-2xl font-semibold text-foreground mb-8">Abhinav KM</h2>
+              </div>
 
               {aboutData.about && (
                 <div className="space-y-8 text-center">
@@ -148,26 +165,17 @@ export default function AboutPage() {
                 </div>
               )}
 
-              {/* Resume button section */}
-              {aboutData.resume && (
-                <div className="text-center">
-                  <a
-                    href={aboutData.resume}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background font-medium rounded-lg hover:bg-foreground/90 transition-all duration-300 hover:scale-105"
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14,2 14,8 20,8" />
-                      <line x1="16" y1="13" x2="8" y2="13" />
-                      <line x1="16" y1="17" x2="8" y2="17" />
-                      <polyline points="10,9 9,9 8,9" />
-                    </svg>
-                    View Resume
-                  </a>
-                </div>
-              )}
+              <div className="text-center">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.abhinavkm.com"}/resume`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-foreground/10 hover:bg-foreground/20 rounded-lg transition-all duration-300 hover:scale-105 text-foreground font-medium"
+                >
+                  <FileText className="w-5 h-5" />
+                  Resume
+                </a>
+              </div>
             </div>
           )}
         </div>
