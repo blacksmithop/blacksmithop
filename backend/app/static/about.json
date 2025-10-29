@@ -1,0 +1,18 @@
+{
+  "introduction": {
+    "text": "Hi, I'm Abhinav and I like bringing uncoventional ideas to life.",
+    "enabled": true
+  },
+  "long_text": {
+    "text": "I am a firm believer that software development is langauge agnostic. As developers we should make the call on what works best for a use-case.",
+    "enabled": true
+  },
+  "hobbies": {
+    "text": "I enjoy working out, spoiling my cat and trying out things that make me step outside my comfort zone (ironic)",
+    "enabled": false
+  },
+  "quote": {
+    "text": "Live & Learn",
+    "enabled": false
+  }
+}
