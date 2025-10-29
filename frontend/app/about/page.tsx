@@ -1,185 +1,173 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { ArrowLeft, FileText } from "lucide-react"
+import { useEffect, useState } from "react";
+import { ArrowLeft, FileText } from "lucide-react";
 
+interface Section {
+  text: string;
+  enabled: boolean;
+}
 interface AboutData {
-  image?: string
-  about?: {
-    quote?: string
-    short_description?: string
-    long_description?: string
-  }
+  image?: string;
+  introduction?: Section;
+  long_text?: Section;
+  hobbies?: Section;
+  quote?: Section;
 }
 
 export default function AboutPage() {
-  const [mounted, setMounted] = useState(false)
-  const [isDark, setIsDark] = useState(false)
-  const [aboutData, setAboutData] = useState<AboutData>({})
-  const [loading, setLoading] = useState(true)
-  const [allEndpointsFailed, setAllEndpointsFailed] = useState(false)
+  const [mounted, setMounted] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [data, setData] = useState<AboutData>({});
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
 
+  /* ── Theme ─────────────────────────────────────── */
   useEffect(() => {
-    setMounted(true)
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark)
+    setMounted(true);
+    const saved = localStorage.getItem("theme");
+    const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const dark = saved === "dark" || (!saved && prefers);
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+  }, []);
 
-    setIsDark(shouldBeDark)
-    document.documentElement.classList.toggle("dark", shouldBeDark)
-  }, [])
-
+  /* ── Data ──────────────────────────────────────── */
   useEffect(() => {
-    const fetchAboutData = async () => {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.abhinavkm.com"
-
+    const fetchData = async () => {
+      const base = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.abhinavkm.com";
       const endpoints = [
-        { key: "image", url: `${apiBaseUrl}/image` },
-        { key: "about", url: `${apiBaseUrl}/about` },
-      ]
+        { key: "image", url: `${base}/image` },
+        { key: "about", url: `${base}/about` },
+      ];
 
-      const results: AboutData = {}
-      let successCount = 0
+      const result: AboutData = {};
+      let ok = 0;
 
       await Promise.allSettled(
         endpoints.map(async ({ key, url }) => {
           try {
-            const response = await fetch(url)
-            if (response.ok) {
-              if (key === "about") {
-                const data = await response.json()
-                results[key as keyof AboutData] = data
-              } else if (key === "image") {
-                const blob = await response.blob()
-                const imageUrl = URL.createObjectURL(blob)
-                results[key as keyof AboutData] = imageUrl
-              }
-              successCount++
+            const res = await fetch(url);
+            if (!res.ok) return;
+
+            if (key === "about") {
+              const json = await res.json();
+              result.introduction = json.introduction;
+              result.long_text = json.long_text;
+              result.hobbies = json.hobbies;
+              result.quote = json.quote;
+            } else {
+              const blob = await res.blob();
+              result.image = URL.createObjectURL(blob);
             }
-          } catch (error) {
-            console.log(`[v0] Failed to fetch ${key}:`, error)
+            ok++;
+          } catch (e) {
+            console.log(`[fetch] ${key}`, e);
           }
-        }),
-      )
+        })
+      );
 
-      setAboutData(results)
-      setAllEndpointsFailed(successCount === 0)
-      setLoading(false)
-    }
+      setData(result);
+      setFailed(ok === 0);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
-    fetchAboutData()
-  }, [])
+  const goBack = () => window.history.back();
 
-  const goBack = () => {
-    window.history.back()
-  }
-
+  /* ── Loading ───────────────────────────────────── */
   if (loading) {
     return (
-      <main className="relative min-h-screen flex items-center justify-center bg-background">
+      <main className="flex min-h-screen items-center justify-center bg-background">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-foreground mx-auto"></div>
-          <p className="mt-4 text-foreground/60">Loading...</p>
+          <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-foreground mx-auto" />
+          <p className="mt-3 text-foreground/60">Loading…</p>
         </div>
       </main>
-    )
+    );
   }
 
+  /* ── Render ────────────────────────────────────── */
   return (
-    <main className="relative min-h-screen bg-background">
-      {/* Back button */}
+    <main className="relative flex min-h-screen flex-col items-center justify-center bg-background px-4 py-12 text-center">
+      {/* Back button – top‑left */}
       <button
         onClick={goBack}
-        className="fixed top-6 left-6 z-20 p-3 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-all duration-300 group"
+        className="fixed left-4 top-4 z-10 rounded-full bg-foreground/10 p-2 transition hover:bg-foreground/20"
         aria-label="Go back"
       >
-        <ArrowLeft className="w-5 h-5 text-foreground" />
+        <ArrowLeft className="h-5 w-5 text-foreground" />
       </button>
 
-      <div className="container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-12 text-center">About</h1>
-
-          {allEndpointsFailed ? (
-            <div className="text-center">
-              <img
-                src="https://http.cat/images/521.jpg"
-                alt="Service unavailable"
-                className="mx-auto rounded-lg shadow-lg max-w-md w-full"
-              />
-              <p className="mt-6 text-foreground/60 text-lg">Sorry, the about information is currently unavailable.</p>
-            </div>
-          ) : (
-            <div className="space-y-12">
-              {aboutData.image && (
-                <div className="text-center">
-                  <div className="relative inline-block">
-                    {/* Rotating outer ring */}
-                    <div
-                      className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 animate-spin"
-                      style={{ animationDuration: "3s" }}
-                    ></div>
-                    <div
-                      className="absolute inset-1 rounded-full border-2 border-transparent bg-gradient-to-l from-cyan-500 via-purple-500 to-blue-500 animate-spin"
-                      style={{ animationDuration: "2s", animationDirection: "reverse" }}
-                    ></div>
-
-                    {/* Profile image container */}
-                    <div className="relative p-2">
-                      <img
-                        src={aboutData.image || "/placeholder.svg"}
-                        alt="Abhinav KM"
-                        className="w-48 h-48 rounded-full object-cover border-4 border-background shadow-2xl"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold text-foreground mb-8">Abhinav KM</h2>
-              </div>
-
-              {aboutData.about && (
-                <div className="space-y-8 text-center">
-                  {/* Quote section */}
-                  {aboutData.about.quote && (
-                    <blockquote className="text-2xl md:text-3xl font-bold text-foreground italic">
-                      "{aboutData.about.quote}"
-                    </blockquote>
-                  )}
-
-                  {/* Short description */}
-                  {aboutData.about.short_description && (
-                    <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
-                      {aboutData.about.short_description}
-                    </p>
-                  )}
-
-                  {/* Long description */}
-                  {aboutData.about.long_description && (
-                    <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-2xl mx-auto">
-                      {aboutData.about.long_description}
-                    </p>
-                  )}
-                </div>
-              )}
-
-              <div className="text-center">
-                <a
-                  href={`${process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.abhinavkm.com"}/resume`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-foreground/10 hover:bg-foreground/20 rounded-lg transition-all duration-300 hover:scale-105 text-foreground font-medium"
-                >
-                  <FileText className="w-5 h-5" />
-                  Resume
-                </a>
+      {failed ? (
+        <div className="max-w-xs">
+          <img
+            src="https://http.cat/images/521.jpg"
+            alt="Unavailable"
+            className="mx-auto w-full rounded-lg shadow-md"
+          />
+          <p className="mt-4 text-foreground/60">Info unavailable right now.</p>
+        </div>
+      ) : (
+        <div className="flex w-full max-w-md flex-col items-center space-y-6">
+          {/* Avatar + Gradient Rings */}
+          {data.image && (
+            <div className="relative w-32 sm:w-40">
+              <div className="relative z-10 overflow-hidden rounded-full border-4 border-background shadow-lg">
+                <img src={data.image} alt="Abhinav KM" className="h-full w-full object-cover" />
               </div>
             </div>
           )}
+
+          {/* Name */}
+          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Abhinav KM</h2>
+
+          {/* Quote */}
+          {data.quote?.enabled && (
+            <blockquote className="italic text-foreground/80">
+              “{data.quote.text}”
+            </blockquote>
+          )}
+
+          {/* Introduction */}
+          {data.introduction?.enabled && (
+            <p className="max-w-xl text-base leading-snug text-foreground/90 sm:text-lg">
+              {data.introduction.text}
+            </p>
+          )}
+
+          {/* Long text */}
+          {data.long_text?.enabled && (
+            <p className="max-w-xl text-sm leading-snug text-foreground/70 sm:text-base">
+              {data.long_text.text}
+            </p>
+          )}
+
+          {/* Hobbies */}
+          {data.hobbies?.enabled && (
+            <div className="w-full max-w-xl rounded-xl bg-foreground/5 p-4">
+              <p className="mb-1 text-xs uppercase tracking-widest text-foreground/50">
+                When I’m not coding…
+              </p>
+              <p className="text-sm leading-snug text-foreground/80 sm:text-base">
+                {data.hobbies.text}
+              </p>
+            </div>
+          )}
+
+          {/* Resume */}
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.abhinavkm.com"}/resume`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg bg-foreground/10 px-5 py-2 text-sm font-medium text-foreground transition hover:bg-foreground/20 hover:scale-105"
+          >
+            <FileText className="h-4 w-4" />
+            View Resume
+          </a>
         </div>
-      </div>
+      )}
     </main>
-  )
+  );
 }
