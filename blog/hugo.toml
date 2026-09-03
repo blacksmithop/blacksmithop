@@ -1,0 +1,104 @@
+baseURL = "https://abhinavkm.com/blog/"
+languageCode = "en-us"
+title = "Abhinav KM"
+theme = "PaperMod"
+
+paginate = 10
+enableInlineShortcodes = true
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+pygmentsUseClasses = true
+
+[minify]
+  disableXML = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[params]
+  env = "production"
+  description = "Notes on software, systems, and things I'm building."
+  keywords = ["blog", "software", "engineering", "notes"]
+  author = "Abhinav KM"
+  defaultTheme = "auto"
+  disableThemeToggle = false
+  ShowShareButtons = true
+  ShowReadingTime = true
+  displayFullLangName = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  ShowFullTextinRSS = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = false
+  tocopen = false
+
+  [params.homeInfoParams]
+    Title = "Hi, I'm Abhinav \U0001F44B"
+    Content = "Notes on software, systems, and things I'm building. Back to [abhinavkm.com](https://abhinavkm.com)."
+
+  [params.assets]
+    disableHLJS = true
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/blacksmithop"
+
+  [[params.socialIcons]]
+    name = "stackoverflow"
+    url = "https://stackoverflow.com/users/11323371/insertcheesyline"
+
+  [[params.socialIcons]]
+    name = "medium"
+    url = "https://medium.com/@blacksmithop"
+
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/blog/index.xml"
+
+[[menu.main]]
+  identifier = "home"
+  name = "abhinavkm.com"
+  url = "https://abhinavkm.com/"
+  weight = 5
+
+[[menu.main]]
+  identifier = "posts"
+  name = "Posts"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "archive"
+  name = "Archive"
+  url = "/archive/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "search"
+  name = "Search"
+  url = "/search/"
+  weight = 40
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    style = "monokai"
