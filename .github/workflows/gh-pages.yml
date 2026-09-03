@@ -17,19 +17,20 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-    defaults:
-      run:
-        working-directory: frontend 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
 
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
+        working-directory: frontend
         run: |
           if [ -f package-lock.json ]; then
             npm ci
@@ -37,10 +38,26 @@ jobs:
             npm install
           fi
 
-      - name: Build
+      - name: Build frontend
+        working-directory: frontend
         env:
           NODE_ENV: production
         run: npm run build
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.165.0'
+          extended: true
+
+      - name: Build blog
+        working-directory: blog
+        run: hugo --minify
+
+      - name: Merge blog into site output
+        run: |
+          rm -rf frontend/out/blog
+          cp -r blog/public frontend/out/blog
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
