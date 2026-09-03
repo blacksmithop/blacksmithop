@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from app import models
 from os import path
@@ -11,18 +11,18 @@ STATIC_DIR = path.join(BASE_DIR, "static")
 
 
 @router.get("/image")
-async def get_image():
+async def get_image() -> FileResponse:
     file_path = path.join(STATIC_DIR, "Avatar.jpg")
     if not path.exists(file_path):
-        return {"error": "Image not found"}
+        raise HTTPException(status_code=404, detail="Image not found")
     return FileResponse(file_path, media_type="image/jpeg")
 
 
 @router.get("/resume")
-async def get_resume():
+async def get_resume() -> FileResponse:
     file_path = path.join(STATIC_DIR, "Resume.pdf")
     if not path.exists(file_path):
-        return {"error": "Resume not found"}
+        raise HTTPException(status_code=404, detail="Resume not found")
     return FileResponse(file_path, media_type="application/pdf")
 
 
